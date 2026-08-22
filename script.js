@@ -260,34 +260,42 @@ document.addEventListener('mousemove', (e) => {
   });
 });
 
-// 9. Interactive Live Wallpaper Engine (Canvas Cyber Constellations & Particles)
+// 9. Interactive Live Wallpaper Engine: Continuous Falling Stars & Shooting Meteor Shower
 function initLiveWallpaper() {
   const canvas = document.getElementById('live-wallpaper-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
   let width, height;
-  let particles = [];
-  const particleCount = window.innerWidth < 768 ? 35 : 65;
-  const maxDistance = 135;
+  let staticStars = [];
+  let fallingStars = [];
+  let meteors = [];
+
+  const staticStarCount = window.innerWidth < 768 ? 70 : 130;
+  const fallingStarCount = window.innerWidth < 768 ? 40 : 85;
 
   let mouse = {
     x: null,
     y: null,
-    radius: 160
+    radius: 180
   };
 
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
+    initStars();
   }
 
   window.addEventListener('resize', resize, { passive: true });
-  resize();
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
+    
+    // Spawn subtle stardust sparks on fast mouse movement
+    if (Math.random() > 0.4) {
+      fallingStars.push(new FallingStar(e.clientX + (Math.random() - 0.5) * 40, e.clientY + (Math.random() - 0.5) * 40, true));
+    }
   }, { passive: true });
 
   window.addEventListener('mouseout', () => {
@@ -295,101 +303,227 @@ function initLiveWallpaper() {
     mouse.y = null;
   });
 
-  class Particle {
+  // 1. Distant Twinkling Star
+  class StaticStar {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.size = Math.random() * 2 + 0.8;
-      this.baseX = this.x;
-      this.baseY = this.y;
-      this.vx = (Math.random() - 0.5) * 0.45;
-      this.vy = (Math.random() - 0.5) * 0.45;
-      this.color = Math.random() > 0.6 ? 'rgba(192, 132, 252, ' : (Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(255, 255, 255, ');
-      this.alpha = Math.random() * 0.35 + 0.15;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.baseAlpha = Math.random() * 0.6 + 0.2;
+      this.twinkleSpeed = Math.random() * 0.03 + 0.01;
+      this.phase = Math.random() * Math.PI * 2;
+      this.color = Math.random() > 0.7 ? '#c084fc' : (Math.random() > 0.4 ? '#38bdf8' : '#ffffff');
     }
 
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
+    draw(time) {
+      const alpha = this.baseAlpha + Math.sin(time * this.twinkleSpeed + this.phase) * 0.25;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = Math.max(0.08, Math.min(1, alpha));
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+    }
+  }
 
-      if (this.x < 0 || this.x > width) this.vx = -this.vx;
-      if (this.y < 0 || this.y > height) this.vy = -this.vy;
+  // 2. Continuous Cascading Falling Star with Light Trail
+  class FallingStar {
+    constructor(x, y, isSpark = false) {
+      this.isSpark = isSpark;
+      this.reset(x, y);
+    }
 
-      // Mouse interactive attraction & gentle repulsion field
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+    reset(customX, customY) {
+      this.x = customX !== undefined ? customX : Math.random() * (width + 300) - 150;
+      this.y = customY !== undefined ? customY : (this.isSpark ? customY : Math.random() * -height);
+      
+      this.speed = Math.random() * 2.8 + 1.6;
+      this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.15; // ~45 deg elegant diagonal fall
+      this.dx = Math.cos(this.angle) * this.speed;
+      this.dy = Math.sin(this.angle) * this.speed;
 
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          const dirX = (dx / dist) * force * 1.5;
-          const dirY = (dy / dist) * force * 1.5;
-          this.x += dirX;
-          this.y += dirY;
-        }
+      this.length = Math.random() * 45 + 20;
+      this.size = Math.random() * 1.6 + 0.8;
+      this.opacity = Math.random() * 0.65 + 0.35;
+      
+      const randColor = Math.random();
+      if (randColor > 0.65) {
+        this.headColor = '#ffffff';
+        this.tailColor = 'rgba(192, 132, 252, '; // Lavender
+      } else if (randColor > 0.35) {
+        this.headColor = '#ffffff';
+        this.tailColor = 'rgba(56, 189, 248, '; // Cyan
+      } else {
+        this.headColor = '#ffffff';
+        this.tailColor = 'rgba(255, 255, 255, '; // Pure White
       }
     }
 
+    update() {
+      this.x += this.dx;
+      this.y += this.dy;
+
+      // Mouse subtle gravitational deflection
+      if (mouse.x !== null && mouse.y !== null) {
+        const distX = mouse.x - this.x;
+        const distY = mouse.y - this.y;
+        const dist = Math.sqrt(distX * distX + distY * distY);
+
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          this.x += (distX / dist) * force * 1.8;
+          this.y += (distY / dist) * force * 1.8;
+        }
+      }
+
+      // Reset when falling out of bounds
+      if (this.y > height + 60 || this.x > width + 100 || this.x < -100) {
+        if (this.isSpark) {
+          return false; // remove spark
+        } else {
+          this.reset(Math.random() * (width + 300) - 150, Math.random() * -80);
+        }
+      }
+      return true;
+    }
+
     draw() {
+      const tailX = this.x - Math.cos(this.angle) * this.length;
+      const tailY = this.y - Math.sin(this.angle) * this.length;
+
+      const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+      grad.addColorStop(0, this.tailColor + '0)');
+      grad.addColorStop(0.7, this.tailColor + (this.opacity * 0.4) + ')');
+      grad.addColorStop(1, this.headColor);
+
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = this.color + this.alpha + ')';
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(this.x, this.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = this.size;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Glowing star head point
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = this.headColor;
       ctx.shadowBlur = 6;
-      ctx.shadowColor = this.color + '0.4)';
       ctx.fill();
       ctx.shadowBlur = 0;
     }
   }
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+  // 3. Fast Radiant Shooting Meteor
+  class Meteor {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * (width * 0.8);
+      this.y = Math.random() * (height * 0.35) - 60;
+      this.speed = Math.random() * 8 + 7;
+      this.angle = Math.PI / 4.2;
+      this.dx = Math.cos(this.angle) * this.speed;
+      this.dy = Math.sin(this.angle) * this.speed;
+      this.length = Math.random() * 120 + 90;
+      this.size = Math.random() * 2.2 + 1.4;
+      this.opacity = 1.0;
+      this.fade = Math.random() * 0.015 + 0.008;
+      this.alive = true;
+      this.color = Math.random() > 0.5 ? 'rgba(192, 132, 252, ' : 'rgba(56, 189, 248, ';
+    }
+
+    update() {
+      this.x += this.dx;
+      this.y += this.dy;
+      this.opacity -= this.fade;
+
+      if (this.opacity <= 0 || this.y > height + 100 || this.x > width + 100) {
+        this.alive = false;
+      }
+    }
+
+    draw() {
+      if (!this.alive || this.opacity <= 0) return;
+
+      const tailX = this.x - Math.cos(this.angle) * this.length;
+      const tailY = this.y - Math.sin(this.angle) * this.length;
+
+      const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+      grad.addColorStop(0, this.color + '0)');
+      grad.addColorStop(0.5, this.color + (this.opacity * 0.6) + ')');
+      grad.addColorStop(1, `rgba(255, 255, 255, ${this.opacity})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(this.x, this.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = this.size;
+      ctx.lineCap = 'round';
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 10;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Bright meteor core
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * 1.3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+      ctx.fill();
+    }
   }
 
-  function animate() {
+  function initStars() {
+    staticStars = [];
+    fallingStars = [];
+    meteors = [];
+
+    for (let i = 0; i < staticStarCount; i++) {
+      staticStars.push(new StaticStar());
+    }
+
+    for (let i = 0; i < fallingStarCount; i++) {
+      fallingStars.push(new FallingStar(Math.random() * width, Math.random() * height));
+    }
+  }
+
+  resize();
+
+  // Periodic Shooting Meteor Spawner
+  let lastMeteorTime = 0;
+  function maybeSpawnMeteor(currentTime) {
+    if (currentTime - lastMeteorTime > (Math.random() * 2500 + 2000)) {
+      if (meteors.length < 3) {
+        meteors.push(new Meteor());
+      }
+      lastMeteorTime = currentTime;
+    }
+  }
+
+  let time = 0;
+  function animate(currentTime = 0) {
+    time += 1;
     ctx.clearRect(0, 0, width, height);
 
-    // Draw particle connection lines
-    for (let a = 0; a < particles.length; a++) {
-      for (let b = a + 1; b < particles.length; b++) {
-        const dx = particles[a].x - particles[b].x;
-        const dy = particles[a].y - particles[b].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+    // 1. Draw static twinkling starfield
+    staticStars.forEach(star => star.draw(time));
 
-        if (dist < maxDistance) {
-          const opacity = (1 - dist / maxDistance) * 0.12;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(192, 132, 252, ${opacity})`;
-          ctx.lineWidth = 0.75;
-          ctx.moveTo(particles[a].x, particles[a].y);
-          ctx.lineTo(particles[b].x, particles[b].y);
-          ctx.stroke();
-        }
-      }
-    }
+    // 2. Update and draw continuous falling stars
+    fallingStars = fallingStars.filter(star => {
+      const active = star.update();
+      if (active) star.draw();
+      return active;
+    });
 
-    // Connect to mouse
-    if (mouse.x !== null && mouse.y !== null) {
-      for (let i = 0; i < particles.length; i++) {
-        const dx = particles[i].x - mouse.x;
-        const dy = particles[i].y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          const opacity = (1 - dist / mouse.radius) * 0.22;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-          ctx.lineWidth = 0.9;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Update & draw particles
-    particles.forEach(p => {
-      p.update();
-      p.draw();
+    // 3. Spawn and draw radiant shooting meteors
+    maybeSpawnMeteor(currentTime);
+    meteors = meteors.filter(meteor => {
+      meteor.update();
+      meteor.draw();
+      return meteor.alive;
     });
 
     requestAnimationFrame(animate);
