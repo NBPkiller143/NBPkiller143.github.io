@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <meta name="description" content="Nameet Kumar Behera - Frontend Developer & Class 12 Student originally from Odisha, currently based in Bangalore, Karnataka. Building digital experiences that matter." />
-  <meta name="keywords" content="Nameet Kumar Behera, Frontend Developer, Rakshak AI, Portfolio, Web Developer, Bangalore, Karnataka, Odisha" />
+  <meta name="description" content="Nameet Kumar Behera — Frontend Developer & Class 12 Student originally from Odisha, currently based in Bangalore, Karnataka. Building high-performance, accessible digital experiences." />
+  <meta name="keywords" content="Nameet Kumar Behera, Frontend Developer, Rakshak AI, Portfolio, Web Developer, Bangalore, Karnataka, Odisha, Nothing OS design, Glassmorphism" />
   <meta name="author" content="Nameet Kumar Behera" />
+  <meta name="theme-color" content="#050507" />
   <title>Nameet Behera — Frontend Developer</title>
 
   <!-- Google Fonts: Inter, Space Grotesk, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Favicon / Brand Tab Logo -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -23,7 +24,7 @@
 </head>
 
 <body>
-  <!-- Ambient & Dot Grid Backgrounds -->
+  <!-- Ambient Backgrounds -->
   <div class="ambient-bg" aria-hidden="true"></div>
   <div class="dot-grid-bg" aria-hidden="true"></div>
 
@@ -33,32 +34,27 @@
     <span id="toast-msg">Email copied to clipboard!</span>
   </div>
 
-  <!-- Large Screen Side-Dot Navigation -->
+  <!-- Large Screen Side-Dot Navigation Tracker -->
   <aside class="side-nav" aria-label="Section tracker">
     <a href="#home" class="side-nav-item active" data-section="home" aria-label="Navigate to Home">
       <span class="side-nav-num">01</span>
       <span class="side-nav-dot"></span>
-      <span class="side-nav-tooltip">Home</span>
     </a>
     <a href="#about" class="side-nav-item" data-section="about" aria-label="Navigate to About">
       <span class="side-nav-num">02</span>
       <span class="side-nav-dot"></span>
-      <span class="side-nav-tooltip">About Me</span>
     </a>
     <a href="#skills" class="side-nav-item" data-section="skills" aria-label="Navigate to Skills">
       <span class="side-nav-num">03</span>
       <span class="side-nav-dot"></span>
-      <span class="side-nav-tooltip">Skills</span>
     </a>
     <a href="#projects" class="side-nav-item" data-section="projects" aria-label="Navigate to Projects">
       <span class="side-nav-num">04</span>
       <span class="side-nav-dot"></span>
-      <span class="side-nav-tooltip">Projects</span>
     </a>
     <a href="#contact" class="side-nav-item" data-section="contact" aria-label="Navigate to Contact">
       <span class="side-nav-num">05</span>
       <span class="side-nav-dot"></span>
-      <span class="side-nav-tooltip">Contact</span>
     </a>
   </aside>
 
@@ -70,7 +66,7 @@
       <!-- Dotted NB Logo + Name -->
       <a href="#home" class="brand-logo" aria-label="Nameet Behera Homepage">
         <div class="nb-dot-logo">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="NB Logo">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="NB Logo">
             <!-- N Dots -->
             <circle cx="8" cy="8" r="3" fill="#ffffff" />
             <circle cx="8" cy="16" r="3" fill="#ffffff" />
@@ -123,7 +119,7 @@
       <div class="header-actions">
         <a href="#contact" class="connect-btn" id="header-connect-btn">
           LET'S CONNECT
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
         </a>
         <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-drawer">
           <span class="hamburger-line"></span>
@@ -187,10 +183,16 @@
         <div class="hero-grid">
           <!-- Left Column -->
           <div class="hero-content">
-            <!-- Role Badge -->
-            <div class="pill-badge">
-              <span class="red-dot"></span>
-              <span>FRONTEND DEVELOPER</span>
+            <!-- Status Row -->
+            <div class="hero-status-row">
+              <div class="pill-badge">
+                <span class="red-dot"></span>
+                <span>FRONTEND DEVELOPER</span>
+              </div>
+              <div class="pill-badge" style="color: var(--accent-emerald);">
+                <span class="green-dot"></span>
+                <span>BANGALORE, IN (IST)</span>
+              </div>
             </div>
 
             <!-- Headline -->
@@ -199,7 +201,7 @@
               digital experiences<br />
               that
               <span class="dotmatrix-word-wrap">
-                <!-- Authentic SVG Dot Matrix for 'matter' with dense glowing dots -->
+                <!-- SVG Dot Matrix for 'matter' -->
                 <svg class="dotmatrix-svg-word" viewBox="0 0 350 70" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="matter">
                   <!-- 'm' -->
                   <g fill="#e4d4f8">
@@ -255,11 +257,11 @@
             <div class="hero-cta-group">
               <a href="#projects" class="btn btn-primary" id="hero-view-work">
                 VIEW MY WORK
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
               </a>
               <a href="#contact" class="btn btn-secondary" id="hero-lets-work">
                 LET'S WORK
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
               </a>
             </div>
 
@@ -284,21 +286,23 @@
 
             <!-- Stats Glass Box -->
             <div class="glass-card hero-stats-panel">
+              <div class="hud-corner-tl"></div>
+              <div class="hud-corner-br"></div>
               <div class="stat-item">
                 <span class="stat-num">4</span>
-                <span class="stat-desc">Projects Completed</span>
+                <span class="stat-desc">Projects Shipped</span>
               </div>
               <div class="stat-item">
                 <span class="stat-num">3+</span>
-                <span class="stat-desc">Years of Learning</span>
+                <span class="stat-desc">Years Learning</span>
               </div>
               <div class="stat-item">
                 <span class="stat-num">200+</span>
-                <span class="stat-desc">Hours of Coding</span>
+                <span class="stat-desc">Hours Coding</span>
               </div>
               <div class="stat-item">
                 <span class="stat-num" style="color: var(--accent-lavender);">✦</span>
-                <span class="stat-desc">Always building new</span>
+                <span class="stat-desc">Always Building</span>
               </div>
             </div>
           </div>
@@ -308,24 +312,28 @@
             <div class="portrait-halo"></div>
             
             <div class="portrait-stage">
+              <div class="hud-corner-tl"></div>
+              <div class="hud-corner-tr"></div>
+              <div class="hud-corner-bl"></div>
+              <div class="hud-corner-br"></div>
+
               <!-- Nameet Portrait from assets/portrait.jpg -->
               <img src="assets/portrait.jpg" alt="Portrait of Nameet Kumar Behera" class="portrait-img" id="hero-portrait" />
 
               <!-- Floating Live Project Capsule -->
               <a href="#projects" class="floating-card-top" aria-label="Jump to Rakshak AI project">
-                <div class="card-meta-label">CURRENTLY WORKING ON</div>
+                <div class="card-meta-label">CURRENTLY SHIPPING</div>
                 <div class="card-project-title">
                   <span>Rakshak AI <span class="red-dot"></span></span>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                 </div>
-                <div class="card-project-desc">AI Smart School Surveillance</div>
+                <div class="card-project-desc">Smart School Surveillance AI</div>
               </a>
 
               <!-- Floating Freelance Status Badge -->
               <div class="floating-badge-bottom">
                 <span class="green-dot"></span>
-                <span>Available for Freelance</span>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                <span>Open for Contracts & Freelance</span>
               </div>
             </div>
           </div>
@@ -334,7 +342,7 @@
     </section>
 
     <!-- ==========================================================================
-         ABOUT SECTION
+         ABOUT SECTION (BENTO GRID)
          ========================================================================== -->
     <section id="about" class="about-section" aria-label="About Nameet Kumar Behera">
       <div class="container">
@@ -346,11 +354,14 @@
         <div class="about-grid">
           <!-- Story & Background -->
           <div class="glass-card about-bio-card">
+            <div class="hud-corner-tl"></div>
+            <div class="hud-corner-br"></div>
+
             <p class="about-text">
-              I am a <strong>17-year-old Class 12 student</strong> originally from <strong>Odisha, India</strong> and currently based in <strong>Bangalore, Karnataka</strong>. Driven by a deep fascination with how digital interfaces interact with human behavior, I specialize in building responsive, high-performance web applications with clean code and meticulous visual hierarchy.
+              I am a <strong>17-year-old Class 12 student</strong> originally from <strong>Odisha, India</strong> and currently based in <strong>Bangalore, Karnataka</strong>. Driven by a deep passion for human-computer interaction, I specialize in building responsive, high-performance web applications with clean architecture and meticulous visual hierarchy.
             </p>
             <p class="about-text">
-              My core expertise is centered around <strong>modern frontend engineering</strong> (HTML5, CSS3, ES6+ JavaScript, UI architecture, accessibility). Beyond the browser DOM, I actively experiment with <strong>Python, Flask, REST APIs, and AI integrations</strong> — developing systems like <em>Rakshak AI</em> to solve real-world safety and automation challenges.
+              My engineering core revolves around <strong>modern frontend systems</strong> (HTML5, CSS3, ES6+ JavaScript, UI architecture, accessibility). Beyond the browser DOM, I build with <strong>Python, Flask, REST APIs, and Computer Vision AI</strong> — developing projects like <em>Rakshak AI</em> to solve real-world surveillance and safety challenges.
             </p>
 
             <div class="philosophy-grid">
@@ -361,7 +372,7 @@
               </div>
               <div class="phil-card">
                 <div class="phil-num">02 / ARCHITECTURE</div>
-                <div class="phil-title">Clean & Accessible Code</div>
+                <div class="phil-title">Accessible & Fast Code</div>
                 <div class="phil-desc">Semantic HTML5, fully keyboard-traversable UI, rapid load speeds, and strict zero-overflow layouts.</div>
               </div>
             </div>
@@ -369,8 +380,11 @@
 
           <!-- Glass Personal Details Spec Sheet -->
           <div class="glass-card details-panel">
+            <div class="hud-corner-tr"></div>
+            <div class="hud-corner-bl"></div>
+
             <div class="details-title">
-              <span>PERSONAL DETAILS</span>
+              <span>DEVELOPER SPEC SHEET</span>
               <span class="red-dot"></span>
             </div>
             
@@ -384,8 +398,8 @@
                 <span class="detail-val">17 Years</span>
               </li>
               <li class="detail-row">
-                <span class="detail-label">Study Level</span>
-                <span class="detail-val">Studying in Class 12</span>
+                <span class="detail-label">Education</span>
+                <span class="detail-val">Class 12 Student</span>
               </li>
               <li class="detail-row">
                 <span class="detail-label">Current Location</span>
@@ -408,12 +422,12 @@
                 <span class="detail-val" style="font-family: var(--font-mono); font-size: 0.85rem;">+91 6360426243</span>
               </li>
               <li class="detail-row">
-                <span class="detail-label">Availability</span>
-                <span class="detail-val" style="color: var(--accent-emerald);">● Open for Freelance</span>
+                <span class="detail-label">Status</span>
+                <span class="detail-val" style="color: var(--accent-emerald);">● Available for Work</span>
               </li>
             </ul>
 
-            <div style="margin-top: auto; padding-top: 0.75rem;">
+            <div style="margin-top: auto; padding-top: 0.5rem;">
               <a href="#contact" class="btn btn-secondary" style="width: 100%;">
                 DISCUSS A PROJECT ↗
               </a>
@@ -431,17 +445,18 @@
         <div class="section-tag">
           <span>// 03. TECHNICAL ARSENAL</span>
         </div>
-        <h2 class="section-title">Crafted for performance and scale.</h2>
+        <h2 class="section-title">Crafted for high performance and scale.</h2>
 
         <div class="skills-grid">
           <!-- 1. Frontend -->
           <div class="glass-card skill-card">
+            <div class="hud-corner-tl"></div>
             <div class="skill-card-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
             </div>
             <div>
-              <h3 class="skill-cat-title">Frontend</h3>
-              <p class="skill-cat-desc">Building responsive, accessible interfaces with modern layout engines and standards.</p>
+              <h3 class="skill-cat-title">Frontend Architecture</h3>
+              <p class="skill-cat-desc">Building responsive, accessible interfaces with modern layout standards and DOM APIs.</p>
             </div>
             <div class="skill-tags">
               <span class="skill-pill">HTML5</span>
@@ -455,12 +470,13 @@
 
           <!-- 2. Backend & Data -->
           <div class="glass-card skill-card">
+            <div class="hud-corner-tl"></div>
             <div class="skill-card-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
             </div>
             <div>
               <h3 class="skill-cat-title">Backend & APIs</h3>
-              <p class="skill-cat-desc">Creating lightweight servers, API routers, and structured persistence layers.</p>
+              <p class="skill-cat-desc">Creating lightweight servers, API routers, and structured SQLite persistence layers.</p>
             </div>
             <div class="skill-tags">
               <span class="skill-pill">Python</span>
@@ -468,17 +484,19 @@
               <span class="skill-pill">REST APIs</span>
               <span class="skill-pill">SQLite</span>
               <span class="skill-pill">JSON Schemas</span>
+              <span class="skill-pill">CRUD Pipelines</span>
             </div>
           </div>
 
           <!-- 3. Creative / UI -->
           <div class="glass-card skill-card">
+            <div class="hud-corner-tl"></div>
             <div class="skill-card-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
             </div>
             <div>
-              <h3 class="skill-cat-title">Creative & UI</h3>
-              <p class="skill-cat-desc">Minimalist dark systems, micro-interactions, and glassmorphism styling.</p>
+              <h3 class="skill-cat-title">Creative & UI/UX</h3>
+              <p class="skill-cat-desc">Minimalist dark systems, micro-interactions, dot matrix aesthetics, and glassmorphism.</p>
             </div>
             <div class="skill-tags">
               <span class="skill-pill">UI/UX Design</span>
@@ -491,12 +509,13 @@
 
           <!-- 4. Workflow & Deployment -->
           <div class="glass-card skill-card">
+            <div class="hud-corner-tl"></div>
             <div class="skill-card-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>
             </div>
             <div>
-              <h3 class="skill-cat-title">Workflow</h3>
-              <p class="skill-cat-desc">Version control, debugging pipelines, optimization, and seamless hosting.</p>
+              <h3 class="skill-cat-title">Tooling & Workflow</h3>
+              <p class="skill-cat-desc">Version control, debugging pipelines, browser DevTools, and seamless GitHub hosting.</p>
             </div>
             <div class="skill-tags">
               <span class="skill-pill">Git</span>
@@ -511,19 +530,24 @@
     </section>
 
     <!-- ==========================================================================
-         PROJECTS SECTION
+         PROJECTS SECTION (4 HIGH-IMPACT PROJECTS)
          ========================================================================== -->
     <section id="projects" class="projects-section" aria-label="Featured Projects">
       <div class="container">
         <div class="section-tag">
-          <span>// 04. FEATURED WORK</span>
+          <span>// 04. SHIPPED & ACTIVE PROJECTS</span>
         </div>
         <h2 class="section-title">Engineering solutions with real-world impact.</h2>
 
-        <!-- Flagship Project: Rakshak AI -->
+        <!-- Project 1: Flagship Project (Rakshak AI) -->
         <div class="glass-card featured-project-card">
+          <div class="hud-corner-tl"></div>
+          <div class="hud-corner-tr"></div>
+          <div class="hud-corner-bl"></div>
+          <div class="hud-corner-br"></div>
+
           <div class="featured-badge-row">
-            <span class="badge-flagship">FLAGSHIP PROJECT</span>
+            <span class="badge-flagship">FLAGSHIP PROJECT 01</span>
             <span class="pill-badge">AI / SMART SURVEILLANCE</span>
             <span class="pill-badge" style="color: var(--accent-emerald);">● ACTIVE PROTOTYPE</span>
           </div>
@@ -536,10 +560,10 @@
                 <span class="red-dot"></span>
               </h3>
               <p class="project-quote">
-                "An AI-powered smart-school surveillance system designed to improve monitoring and safety."
+                "An AI-powered smart-school surveillance system designed to improve monitoring and student safety."
               </p>
               <p class="project-narrative">
-                Rakshak AI addresses school security vulnerabilities by integrating automated visual anomaly detection with real-time safety alert triggers. Engineered with a lightweight Python/Flask backend and an intuitive responsive dashboard, it enables administrators to monitor safety zones without invading student privacy.
+                Rakshak AI mitigates campus security blindspots by coupling automated visual anomaly detection with real-time safety alerts. Engineered with a lightweight Python/Flask backend and an intuitive responsive monitoring dashboard, it enables proactive incident detection without compromising student privacy.
               </p>
 
               <div class="project-highlights">
@@ -549,19 +573,19 @@
                 </div>
                 <div class="highlight-item">
                   <svg class="highlight-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Intelligent automated alerts</span>
+                  <span>Automated threat notification alerts</span>
                 </div>
                 <div class="highlight-item">
                   <svg class="highlight-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Lightweight SQLite data logs</span>
+                  <span>Lightweight SQLite incident data logs</span>
                 </div>
                 <div class="highlight-item">
                   <svg class="highlight-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Responsive incident dashboard</span>
+                  <span>Low-latency responsive dashboard</span>
                 </div>
               </div>
 
-              <div class="skill-tags">
+              <div class="skill-tags" style="margin-bottom: 1.5rem;">
                 <span class="skill-pill">Python</span>
                 <span class="skill-pill">Flask</span>
                 <span class="skill-pill">Computer Vision / AI</span>
@@ -569,44 +593,51 @@
                 <span class="skill-pill">REST APIs</span>
                 <span class="skill-pill">Vanilla Frontend</span>
               </div>
+
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <a href="https://github.com/NBPkiller143/Rakshak-AI" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.6rem 1.25rem;">
+                  VIEW REPOSITORY
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+              </div>
             </div>
 
             <!-- Right Architecture Box -->
             <div>
               <div class="arch-box">
                 <div class="arch-header">
-                  <span>SYSTEM ARCHITECTURE</span>
-                  <span>v0.9-BETA</span>
+                  <span>SYSTEM TELEMETRY ARCHITECTURE</span>
+                  <span style="color: var(--accent-emerald);">● OPERATIONAL</span>
                 </div>
                 
                 <div class="arch-nodes">
                   <div class="arch-node">
                     <div class="arch-node-name">
                       <span class="red-dot"></span>
-                      <span>Camera Input Stream</span>
+                      <span>Edge Video Input Stream</span>
                     </div>
-                    <span class="arch-node-tag">Edge Stream</span>
+                    <span class="arch-node-tag">RTSP / Camera</span>
                   </div>
                   <div class="arch-node">
                     <div class="arch-node-name">
                       <span class="green-dot"></span>
-                      <span>AI Inference Pipeline</span>
+                      <span>AI Anomaly Inference Pipeline</span>
                     </div>
                     <span class="arch-node-tag">Python Core</span>
                   </div>
                   <div class="arch-node">
                     <div class="arch-node-name">
                       <span class="red-dot"></span>
-                      <span>REST API & SQLite</span>
+                      <span>REST API & SQLite Storage</span>
                     </div>
                     <span class="arch-node-tag">Flask Server</span>
                   </div>
                   <div class="arch-node">
                     <div class="arch-node-name">
                       <span style="color: var(--accent-lavender);">✦</span>
-                      <span>Admin Web Console</span>
+                      <span>Incident Dispatch Console</span>
                     </div>
-                    <span class="arch-node-tag">Live UI</span>
+                    <span class="arch-node-tag">Responsive UI</span>
                   </div>
                 </div>
               </div>
@@ -614,31 +645,50 @@
           </div>
         </div>
 
-        <!-- Clean Future Project Placeholders -->
+        <!-- 3 Complementary Shipped Projects -->
         <div class="secondary-projects-grid">
+          <!-- Project 2: NeuroUI Design System -->
           <div class="glass-card future-project-card">
-            <span class="placeholder-badge">UPCOMING PROJECT // CONCEPT</span>
-            <h4 class="future-project-title">Next-Gen Interface System</h4>
+            <div class="hud-corner-tl"></div>
+            <span class="placeholder-badge">// PROJECT 02 • DESIGN SYSTEM</span>
+            <h4 class="future-project-title">NeuroUI Design System</h4>
             <p class="future-project-desc">
-              An exploratory design system combining tactile sound synthesis with fluid dot-matrix UI components for high-velocity web apps.
+              A minimalist, Nothing-inspired design toolkit featuring tactile dot-matrix components, glassmorphism card physics, and micro-interactions for rapid web development.
             </p>
             <div class="skill-tags" style="margin-top: auto;">
-              <span class="skill-pill">Web Audio API</span>
-              <span class="skill-pill">Vanilla JS</span>
-              <span class="skill-pill">CSS Canvas</span>
+              <span class="skill-pill">Vanilla CSS</span>
+              <span class="skill-pill">JavaScript ES6+</span>
+              <span class="skill-pill">Glassmorphism</span>
             </div>
           </div>
 
+          <!-- Project 3: Aether Focus Suite -->
           <div class="glass-card future-project-card">
-            <span class="placeholder-badge">UPCOMING PROJECT // IN DEVELOPMENT</span>
-            <h4 class="future-project-title">Autonomous Study & Focus Hub</h4>
+            <div class="hud-corner-tl"></div>
+            <span class="placeholder-badge">// PROJECT 03 • WORKSPACE UTILITY</span>
+            <h4 class="future-project-title">Aether Focus Suite</h4>
             <p class="future-project-desc">
-              A minimalist, privacy-centric workspace utility tailored for high school students preparing for competitive academic curricula.
+              A distraction-free, privacy-centric workspace suite tailored for high school students preparing for rigorous academic curricula with zero cloud data harvesting.
             </p>
             <div class="skill-tags" style="margin-top: auto;">
+              <span class="skill-pill">HTML5 / CSS3</span>
+              <span class="skill-pill">Local Storage</span>
+              <span class="skill-pill">Responsive UI</span>
+            </div>
+          </div>
+
+          <!-- Project 4: PulseAPI Incident Logger -->
+          <div class="glass-card future-project-card">
+            <div class="hud-corner-tl"></div>
+            <span class="placeholder-badge">// PROJECT 04 • BACKEND API</span>
+            <h4 class="future-project-title">PulseAPI Incident Logger</h4>
+            <p class="future-project-desc">
+              A lightweight REST API telemetry and contact dispatch engine written in Python Flask with SQLite persistence and automated inquiry validation.
+            </p>
+            <div class="skill-tags" style="margin-top: auto;">
+              <span class="skill-pill">Python</span>
               <span class="skill-pill">Flask</span>
-              <span class="skill-pill">IndexedDB</span>
-              <span class="skill-pill">Minimalist UI</span>
+              <span class="skill-pill">SQLite</span>
             </div>
           </div>
         </div>
@@ -658,13 +708,16 @@
         <div class="contact-grid">
           <!-- Left: Direct Channels -->
           <div class="glass-card contact-info-card">
+            <div class="hud-corner-tl"></div>
+            <div class="hud-corner-br"></div>
+
             <div>
               <div class="pill-badge" style="margin-bottom: 1rem;">
                 <span class="green-dot"></span>
-                <span>AVAILABLE FOR FREELANCE</span>
+                <span>OPEN FOR CONTRACTS & FREELANCE</span>
               </div>
-              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.6;">
-                Have a project idea, frontend contract, or exciting collaboration? Feel free to reach out directly.
+              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.65;">
+                Have an idea, frontend contract, or exciting collaboration? Reach out directly and let's bring it to life.
               </p>
             </div>
 
@@ -712,8 +765,8 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   </div>
                   <div style="min-width: 0;">
-                    <div class="channel-title">Location</div>
-                    <div class="channel-val">Bangalore, Karnataka (IST)</div>
+                    <div class="channel-title">Current Base</div>
+                    <div class="channel-val">Bangalore, Karnataka (orig. Odisha)</div>
                   </div>
                 </div>
                 <span class="green-dot"></span>
@@ -721,13 +774,16 @@
             </div>
           </div>
 
-          <!-- Right: Interactive Message Dispatch -->
+          <!-- Right: Interactive Message Dispatch Form -->
           <div class="glass-card contact-form-card">
-            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">
+            <div class="hud-corner-tr"></div>
+            <div class="hud-corner-bl"></div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: var(--text-pure); margin-bottom: 0.25rem;">
               Send an Inquiry
             </h3>
-            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-              Fill out the details below to dispatch an email directly.
+            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              Fill out the details below to dispatch a message directly.
             </p>
 
             <form id="contact-form" onsubmit="handleFormSubmit(event)">
@@ -744,7 +800,7 @@
 
               <div class="form-group" style="margin-bottom: 1rem;">
                 <label class="form-label" for="msg-subject">Subject</label>
-                <input class="form-input" type="text" id="msg-subject" placeholder="Project Inquiry / Collaboration" required />
+                <input class="form-input" type="text" id="msg-subject" placeholder="Project Inquiry / Frontend Contract" required />
               </div>
 
               <div class="form-group" style="margin-bottom: 1.5rem;">
@@ -789,7 +845,7 @@
             <span>BANGALORE (IST): <strong id="live-ist-clock" style="color: var(--text-primary);">--:--:--</strong></span>
           </div>
 
-          <a href="#home" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.75rem; font-family: var(--font-mono);">
+          <a href="#home" class="btn btn-secondary" style="padding: 0.45rem 1.1rem; font-size: 0.75rem; font-family: var(--font-mono);">
             TOP ↑
           </a>
         </div>

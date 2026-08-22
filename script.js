@@ -25,7 +25,7 @@ document.addEventListener('click', (e) => {
   const targetEl = document.getElementById(targetId);
   if (targetEl) {
     e.preventDefault();
-    const headerHeight = 72;
+    const headerHeight = 74;
     const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - (targetId === 'home' ? 120 : headerHeight + 10);
     
     window.scrollTo({
@@ -183,7 +183,7 @@ async function handleFormSubmit(e) {
   if (sendBtn) {
     sendBtn.disabled = true;
     sendBtn.innerHTML = `
-      <svg class="green-dot" style="display:inline-block; margin-right:6px;"></svg>
+      <span class="green-dot" style="display:inline-block; margin-right:6px;"></span>
       DISPATCHING...
     `;
   }
@@ -205,7 +205,7 @@ async function handleFormSubmit(e) {
       if (statusBox) {
         statusBox.className = 'form-status-box success';
         statusBox.style.display = 'flex';
-        statusBox.innerHTML = `<span>✓ Message sent successfully! Thanks <strong>${name}</strong>, I'll get back to you shortly.</span>`;
+        statusBox.innerHTML = `<span>✓ Message dispatched successfully! Thanks <strong>${name}</strong>, I'll get back to you shortly.</span>`;
       }
       showToast(`Inquiry sent! Thanks ${name}`);
       document.getElementById('contact-form').reset();
@@ -247,3 +247,15 @@ async function handleFormSubmit(e) {
     }
   }
 }
+
+// 8. Dynamic Mouse Spotlight Effect for Glass Cards
+document.addEventListener('mousemove', (e) => {
+  const cards = document.querySelectorAll('.glass-card');
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  });
+});
