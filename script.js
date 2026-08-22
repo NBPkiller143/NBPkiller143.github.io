@@ -259,3 +259,143 @@ document.addEventListener('mousemove', (e) => {
     card.style.setProperty('--mouse-y', `${y}px`);
   });
 });
+
+// 9. Interactive Live Wallpaper Engine (Canvas Cyber Constellations & Particles)
+function initLiveWallpaper() {
+  const canvas = document.getElementById('live-wallpaper-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  const particleCount = window.innerWidth < 768 ? 35 : 65;
+  const maxDistance = 135;
+
+  let mouse = {
+    x: null,
+    y: null,
+    radius: 160
+  };
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
+
+  window.addEventListener('mouseout', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 2 + 0.8;
+      this.baseX = this.x;
+      this.baseY = this.y;
+      this.vx = (Math.random() - 0.5) * 0.45;
+      this.vy = (Math.random() - 0.5) * 0.45;
+      this.color = Math.random() > 0.6 ? 'rgba(192, 132, 252, ' : (Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(255, 255, 255, ');
+      this.alpha = Math.random() * 0.35 + 0.15;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.x < 0 || this.x > width) this.vx = -this.vx;
+      if (this.y < 0 || this.y > height) this.vy = -this.vy;
+
+      // Mouse interactive attraction & gentle repulsion field
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const dirX = (dx / dist) * force * 1.5;
+          const dirY = (dy / dist) * force * 1.5;
+          this.x += dirX;
+          this.y += dirY;
+        }
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color + this.alpha + ')';
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = this.color + '0.4)';
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw particle connection lines
+    for (let a = 0; a < particles.length; a++) {
+      for (let b = a + 1; b < particles.length; b++) {
+        const dx = particles[a].x - particles[b].x;
+        const dy = particles[a].y - particles[b].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < maxDistance) {
+          const opacity = (1 - dist / maxDistance) * 0.12;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(192, 132, 252, ${opacity})`;
+          ctx.lineWidth = 0.75;
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(particles[b].x, particles[b].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Connect to mouse
+    if (mouse.x !== null && mouse.y !== null) {
+      for (let i = 0; i < particles.length; i++) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius) {
+          const opacity = (1 - dist / mouse.radius) * 0.22;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
+          ctx.lineWidth = 0.9;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Update & draw particles
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+window.addEventListener('DOMContentLoaded', initLiveWallpaper);
