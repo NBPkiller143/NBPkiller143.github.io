@@ -1,18 +1,20 @@
 /**
  * ============================================================================
- * NAMEET KUMAR BEHERA — ULTRA-PREMIUM 3D PORTFOLIO ENGINE
- * Technologies: Three.js (WebGL 3D), GSAP 3 + ScrollTrigger, Vanilla JavaScript
+ * NAMEET KUMAR BEHERA — SPATIAL 3D PORTFOLIO ENGINE
+ * Inspired by the creative direction & spatial storytelling of why.zero.university
+ * Technologies: Three.js (WebGL 3D), GSAP 3 + ScrollTrigger, Vanilla ES6+
  * Features:
- *  - Interactive 3D Spatial WebGL Universe (Background particle cosmos)
- *  - Hero 3D Quantum Gyroscope Core with 360° Drag & Pointer Parallax
- *  - Rakshak AI 3D AI Sentinel Radar Scanner with Live Sweep Beam
- *  - Dual-Mode Hero Visual Stage (3D Quantum Core / Developer Photo ID)
- *  - GSAP ScrollTrigger Orchestrated Section & Card Reveals
- *  - Magnetic Button Physics for CTAs & Social Channels
- *  - Dynamic 3D Card Tilt with Specular Spotlight Highlights
- *  - Custom Cyber Magnetic Cursor with Spring Lag Follower
- *  - Live IST Clock, Contact REST API + Mailto Fallback, Toast System
- *  - Graceful Fallback if WebGL is unavailable + Reduced Motion Support
+ *  - Interactive 3D Spatial Universe (Obsidian & Emerald Cosmos Particles)
+ *  - Hero 3D Monolithic Spatial Portal & Gyroscope Core (360° Drag & Pointer Tilt)
+ *  - Rakshak AI 3D Sentinel Radar Scanner (Live Sweep Beam & Anomaly Markers)
+ *  - Dual-Mode Hero Visual Stage (3D Spatial Portal / Authentic Developer Identity)
+ *  - 6-Section Dynamic Scroll-Spy & Side-Nav Telemetry Sync
+ *  - GSAP ScrollTrigger Orchestrated Reveals (Process Steps, Projects, Bento Cards)
+ *  - Magnetic Button Physics with Elastic Spring Dynamics
+ *  - 3D Card Tilt with Specular Spotlight Coordinates
+ *  - Cyber Magnetic Cursor with Spring Lag Follower
+ *  - Live IST Clock (Bangalore), REST API Contact Dispatch + Mailto Fallback
+ *  - Graceful Fallback if WebGL is unavailable + Full Reduced Motion Support
  * ============================================================================
  */
 
@@ -106,7 +108,7 @@
   });
 
   // --------------------------------------------------------------------------
-  // 3. SCROLL-SPY & SIDE-DOT SYNC
+  // 3. 6-SECTION SCROLL-SPY & SIDE-DOT SYNC
   // --------------------------------------------------------------------------
   const sections = document.querySelectorAll('section[id]');
   const desktopNavLinks = document.querySelectorAll('.desktop-nav .nav-link');
@@ -117,7 +119,7 @@
     let currentSectionId = 'home';
 
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 140;
+      const sectionTop = section.offsetTop - 150;
       const sectionHeight = section.offsetHeight;
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
         currentSectionId = section.getAttribute('id');
@@ -181,7 +183,7 @@
     clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
       toast.classList.remove('show');
-    }, 3500);
+    }, 3800);
   }
 
   // --------------------------------------------------------------------------
@@ -204,7 +206,7 @@
   }
 
   // --------------------------------------------------------------------------
-  // 7. CONTACT FORM HANDLER (REST API + MAILTO FALLBACK)
+  // 7. CONTACT FORM DISPATCHER (REST API + MAILTO FALLBACK)
   // --------------------------------------------------------------------------
   window.handleFormSubmit = async function (e) {
     e.preventDefault();
@@ -237,8 +239,8 @@
     if (sendBtn) {
       sendBtn.disabled = true;
       sendBtn.innerHTML = `
-        <span class="green-dot" style="display:inline-block; margin-right:6px;"></span>
-        DISPATCHING...
+        <span class="emerald-dot" style="display:inline-block; margin-right:6px;"></span>
+        TRANSMITTING...
       `;
     }
 
@@ -259,13 +261,14 @@
         if (statusBox) {
           statusBox.className = 'form-status-box success';
           statusBox.style.display = 'flex';
-          statusBox.innerHTML = `<span>✓ Message dispatched successfully! Thanks <strong>${name}</strong>, I'll get back to you shortly.</span>`;
+          statusBox.innerHTML = `<span>✓ Message transmitted successfully! Thanks <strong>${name}</strong>, I'll reply within 24 hours.</span>`;
         }
-        showToast(`Inquiry sent! Thanks ${name}`);
-        document.getElementById('contact-form').reset();
+        showToast(`Transmission received! Thanks ${name}`);
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) contactForm.reset();
 
         if (sendBtn) {
-          sendBtn.innerHTML = 'MESSAGE SENT ✓';
+          sendBtn.innerHTML = 'TRANSMISSION COMPLETE ✓';
           sendBtn.style.backgroundColor = '#10b981';
           sendBtn.style.color = '#ffffff';
           setTimeout(() => {
@@ -278,18 +281,18 @@
         throw new Error(result.message || 'API error');
       }
     } catch (err) {
-      // Graceful fallback to mailto URI (e.g. for static GitHub Pages)
+      // Graceful client-side fallback for static hosting (GitHub Pages)
       const formattedBody = `Hello Nameet,\n\n${body}\n\nFrom: ${name} (${email})`;
       const mailtoUri = `mailto:nameetbehera6@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(formattedBody)}`;
 
       if (statusBox) {
         statusBox.className = 'form-status-box success';
         statusBox.style.display = 'flex';
-        statusBox.innerHTML = `<span>✓ Opening email client to send to <strong>nameetbehera6@gmail.com</strong>...</span>`;
+        statusBox.innerHTML = `<span>✓ Launching mail client to connect directly with <strong>nameetbehera6@gmail.com</strong>...</span>`;
       }
 
       window.location.href = mailtoUri;
-      showToast('Opening your email app to send...');
+      showToast('Opening email client to dispatch...');
 
       if (sendBtn) {
         sendBtn.innerHTML = 'SEND MESSAGE ↗';
@@ -302,7 +305,7 @@
   };
 
   // --------------------------------------------------------------------------
-  // 8. TOP SCROLL PROGRESS BAR
+  // 8. SCROLL PROGRESS INDICATOR
   // --------------------------------------------------------------------------
   function updateScrollProgress() {
     const progressBar = document.getElementById('scroll-progress');
@@ -317,7 +320,7 @@
   window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
   // --------------------------------------------------------------------------
-  // 9. CUSTOM CYBER MAGNETIC CURSOR (DESKTOP)
+  // 9. CYBER MAGNETIC CURSOR (DESKTOP)
   // --------------------------------------------------------------------------
   function initCustomCursor() {
     if (isTouchDevice) return;
@@ -358,17 +361,15 @@
       ring.style.opacity = '1';
     });
 
-    // Spring lag follower for ring
     function renderRing() {
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
       ring.style.left = `${ringX}px`;
       ring.style.top = `${ringY}px`;
       requestAnimationFrame(renderRing);
     }
     requestAnimationFrame(renderRing);
 
-    // Expand cursor on interactive elements
     const interactiveSelectors = 'a, button, input, textarea, canvas, .stage-tab, .glass-card, [role="button"], [data-magnetic="true"]';
     document.addEventListener('mouseover', (e) => {
       if (e.target.closest(interactiveSelectors)) {
@@ -431,8 +432,8 @@
         if (!isTouchDevice && !prefersReducedMotion && card.hasAttribute('data-tilt')) {
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          const rotateX = -((y - centerY) / centerY) * 5.5;
-          const rotateY = ((x - centerX) / centerX) * 5.5;
+          const rotateX = -((y - centerY) / centerY) * 5.2;
+          const rotateY = ((x - centerX) / centerX) * 5.2;
 
           card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(4px)`;
         }
@@ -449,7 +450,7 @@
   init3DCardTilt();
 
   // --------------------------------------------------------------------------
-  // 12. HERO DUAL-MODE STAGE SWITCHER (3D CORE / PHOTO ID)
+  // 12. HERO DUAL-MODE STAGE SWITCHER (3D PORTAL / DEV PHOTO)
   // --------------------------------------------------------------------------
   function initHeroStageSwitcher() {
     const tab3D = document.getElementById('tab-3d-core');
@@ -483,12 +484,11 @@
   initHeroStageSwitcher();
 
   // --------------------------------------------------------------------------
-  // 13. THREE.JS ENGINE 1: 3D SPATIAL UNIVERSE BACKGROUND
+  // 13. THREE.JS ENGINE 1: 3D SPATIAL UNIVERSE BACKGROUND (OBSIDIAN & EMERALD)
   // --------------------------------------------------------------------------
   function init3DUniverse() {
     const canvas = document.getElementById('bg-3d-canvas');
     if (!canvas || !webglAvailable) {
-      // Fall back to 2D canvas
       const fallback = document.getElementById('live-wallpaper-canvas');
       if (fallback) {
         fallback.style.display = 'block';
@@ -510,17 +510,18 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle cosmos geometry
+    // Particle cosmos geometry with emerald, mint, starlight and subtle cyan highlights
     const particleCount = window.innerWidth < 768 ? 650 : 1300;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
     const palette = [
-      new THREE.Color('#c084fc'), // Cyber lavender
-      new THREE.Color('#38bdf8'), // Neon cyan
-      new THREE.Color('#ffffff'), // Crisp white
-      new THREE.Color('#ff3b30')  // Brand crimson
+      new THREE.Color('#10b981'), // Luminous Emerald
+      new THREE.Color('#34d399'), // Mint
+      new THREE.Color('#059669'), // Forest Green
+      new THREE.Color('#e2e8f0'), // Starlight Silver
+      new THREE.Color('#38bdf8')  // Subtle Cyan Telemetry
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -544,8 +545,8 @@
     const pCtx = pCanvas.getContext('2d');
     const grad = pCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.35, 'rgba(255,255,255,0.75)');
-    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    grad.addColorStop(0.35, 'rgba(52,211,153,0.75)');
+    grad.addColorStop(1, 'rgba(16,185,129,0)');
     pCtx.fillStyle = grad;
     pCtx.fillRect(0, 0, 32, 32);
 
@@ -556,7 +557,7 @@
       vertexColors: true,
       map: pTexture,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.72,
       blending: THREE.AdditiveBlending,
       depthWrite: false
     });
@@ -578,7 +579,7 @@
         color: palette[i % palette.length],
         wireframe: true,
         transparent: true,
-        opacity: 0.18
+        opacity: 0.16
       });
 
       const mesh = new THREE.Mesh(polyGeo, polyMat);
@@ -588,15 +589,15 @@
         (Math.random() - 0.5) * 600
       );
       mesh.userData = {
-        rotX: (Math.random() - 0.5) * 0.015,
-        rotY: (Math.random() - 0.5) * 0.015
+        rotX: (Math.random() - 0.5) * 0.012,
+        rotY: (Math.random() - 0.5) * 0.012
       };
       polyGroup.add(mesh);
       polyMeshes.push(mesh);
     }
     scene.add(polyGroup);
 
-    // Mouse coordinates tracking
+    // Coordinates tracking
     let targetMouseX = 0;
     let targetMouseY = 0;
     let currentMouseX = 0;
@@ -607,13 +608,11 @@
       targetMouseY = (e.clientY - window.innerHeight / 2) * 0.0008;
     }, { passive: true });
 
-    // Scroll depth tracking
     let scrollDepth = 0;
     window.addEventListener('scroll', () => {
       scrollDepth = window.pageYOffset * 0.15;
     }, { passive: true });
 
-    // Resize handler
     function onResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -621,13 +620,11 @@
     }
     window.addEventListener('resize', onResize, { passive: true });
 
-    // Visibility management
     let isTabActive = true;
     document.addEventListener('visibilitychange', () => {
       isTabActive = !document.hidden;
     });
 
-    // Animation Loop
     function animate() {
       requestAnimationFrame(animate);
       if (!isTabActive) return;
@@ -636,8 +633,8 @@
       currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
       if (!prefersReducedMotion) {
-        particles.rotation.y += 0.0004;
-        particles.rotation.x += 0.0002;
+        particles.rotation.y += 0.00035;
+        particles.rotation.x += 0.00018;
 
         polyMeshes.forEach(mesh => {
           mesh.rotation.x += mesh.userData.rotX;
@@ -645,8 +642,8 @@
         });
       }
 
-      camera.position.x = currentMouseX * 120;
-      camera.position.y = -currentMouseY * 120;
+      camera.position.x = currentMouseX * 110;
+      camera.position.y = -currentMouseY * 110;
       camera.position.z = 450 - (scrollDepth % 300);
 
       camera.lookAt(scene.position);
@@ -657,7 +654,8 @@
   }
 
   // --------------------------------------------------------------------------
-  // 14. THREE.JS ENGINE 2: HERO 3D QUANTUM GYROSCOPE CORE
+  // 14. THREE.JS ENGINE 2: HERO 3D MONOLITHIC SPATIAL PORTAL
+  // Metaphor: Luminous Obsidian & Emerald Dimensional Gyroscope Portal
   // --------------------------------------------------------------------------
   function initHero3DCore() {
     const canvas = document.getElementById('hero-3d-canvas');
@@ -680,82 +678,112 @@
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Master 3D Group
-    const coreGroup = new THREE.Group();
-    scene.add(coreGroup);
+    // Master Portal Group
+    const portalGroup = new THREE.Group();
+    scene.add(portalGroup);
 
-    // 1. Faceted Central Quantum Core (Icosahedron)
+    // 1. Faceted Central Obsidian & Emerald Monolith Core
     const coreGeo = new THREE.IcosahedronGeometry(1.35, 0);
     const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x120826,
-      roughness: 0.18,
-      metalness: 0.88,
-      emissive: 0x8b5cf6,
+      color: 0x04190e,
+      roughness: 0.15,
+      metalness: 0.92,
+      emissive: 0x10b981,
       emissiveIntensity: 0.45,
       flatShading: true
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    coreGroup.add(coreMesh);
+    portalGroup.add(coreMesh);
 
-    // Core Wireframe Cage
+    // Core Emerald Wireframe Lattice
     const wireGeo = new THREE.IcosahedronGeometry(1.38, 1);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
+      color: 0x34d399,
       wireframe: true,
       transparent: true,
-      opacity: 0.4
+      opacity: 0.45
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
-    coreGroup.add(wireMesh);
+    portalGroup.add(wireMesh);
 
-    // 2. Gimbal Rings
-    // Ring 1 (Inner Torus)
+    // 2. Gimbal Portal Rings
+    // Ring 1 (Equatorial Gyro Ring - Emerald emissive)
     const ring1Geo = new THREE.TorusGeometry(1.95, 0.038, 16, 80);
     const ring1Mat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
+      color: 0x10b981,
       metalness: 0.95,
-      roughness: 0.2,
-      emissive: 0xc084fc,
-      emissiveIntensity: 0.35
+      roughness: 0.18,
+      emissive: 0x059669,
+      emissiveIntensity: 0.5
     });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    coreGroup.add(ring1);
+    portalGroup.add(ring1);
 
-    // Ring 2 (Middle Torus, inclined 55 deg)
+    // Ring 2 (Meridian Ring - Mint / Frosted Silver, inclined 58 deg)
     const ring2Geo = new THREE.TorusGeometry(2.4, 0.032, 16, 90);
     const ring2Mat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
+      color: 0x6ee7b7,
       metalness: 0.9,
-      roughness: 0.25,
-      emissive: 0x0284c7,
+      roughness: 0.22,
+      emissive: 0x10b981,
       emissiveIntensity: 0.35
     });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.x = Math.PI / 3.2;
-    coreGroup.add(ring2);
+    ring2.rotation.x = Math.PI / 3.1;
+    portalGroup.add(ring2);
 
-    // Ring 3 (Outer Torus, inclined -45 deg)
+    // Ring 3 (Outer Dimensional Horizon Ring - Obsidian & Teal accent)
     const ring3Geo = new THREE.TorusGeometry(2.85, 0.026, 16, 100);
     const ring3Mat = new THREE.MeshStandardMaterial({
-      color: 0xff3b30,
-      metalness: 0.85,
-      roughness: 0.3,
-      emissive: 0xff3b30,
-      emissiveIntensity: 0.4
+      color: 0x34d399,
+      metalness: 0.88,
+      roughness: 0.25,
+      emissive: 0x38bdf8,
+      emissiveIntensity: 0.3
     });
     const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
     ring3.rotation.y = Math.PI / 4;
-    coreGroup.add(ring3);
+    portalGroup.add(ring3);
 
-    // 3. Orbiting Satellite Telemetry Beads on Outer Ring
+    // 3. Orbiting Architectural Monolith Shards (4 Axially Positioned Pillars)
+    const obelisks = [];
+    const obeliskCount = 4;
+    const obeliskGeo = new THREE.BoxGeometry(0.12, 1.25, 0.12);
+    const obeliskEdges = new THREE.EdgesGeometry(obeliskGeo);
+    const obeliskLineMat = new THREE.LineBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.85 });
+
+    const obeliskMeshMat = new THREE.MeshStandardMaterial({
+      color: 0x04190e,
+      roughness: 0.2,
+      metalness: 0.95
+    });
+
+    for (let i = 0; i < obeliskCount; i++) {
+      const obeliskGroup = new THREE.Group();
+      const oMesh = new THREE.Mesh(obeliskGeo, obeliskMeshMat);
+      const oLine = new THREE.LineSegments(obeliskEdges, obeliskLineMat);
+      obeliskGroup.add(oMesh);
+      obeliskGroup.add(oLine);
+
+      portalGroup.add(obeliskGroup);
+      obelisks.push({
+        group: obeliskGroup,
+        angle: (i * (Math.PI * 2)) / obeliskCount,
+        speed: 0.008 + i * 0.002,
+        radius: 3.15,
+        elevationSpeed: 0.02 + i * 0.01
+      });
+    }
+
+    // 4. Orbiting Telemetry Spheres
     const satellites = [];
     const satCount = 3;
     const satGeo = new THREE.SphereGeometry(0.08, 16, 16);
-    const satMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const satMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
 
     for (let i = 0; i < satCount; i++) {
       const sat = new THREE.Mesh(satGeo, satMat);
-      coreGroup.add(sat);
+      portalGroup.add(sat);
       satellites.push({
         mesh: sat,
         angle: (i * (Math.PI * 2)) / satCount,
@@ -764,7 +792,7 @@
       });
     }
 
-    // 4. Floating Micro-dust Particles
+    // 5. Floating Micro-dust Particles
     const dustCount = 80;
     const dustGeo = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
@@ -778,30 +806,30 @@
 
     const dustMat = new THREE.PointsMaterial({
       size: 0.06,
-      color: 0xc084fc,
+      color: 0x10b981,
       transparent: true,
       opacity: 0.65
     });
     const dustPoints = new THREE.Points(dustGeo, dustMat);
-    coreGroup.add(dustPoints);
+    portalGroup.add(dustPoints);
 
-    // 5. Lighting Setup
-    const ambientLight = new THREE.AmbientLight(0x221133, 1.4);
+    // 6. Atmospheric Lighting
+    const ambientLight = new THREE.AmbientLight(0x04180d, 1.6);
     scene.add(ambientLight);
 
-    const cyanLight = new THREE.DirectionalLight(0x38bdf8, 2.4);
-    cyanLight.position.set(4, 5, 4);
-    scene.add(cyanLight);
+    const mintKeyLight = new THREE.DirectionalLight(0x34d399, 2.4);
+    mintKeyLight.position.set(4, 5, 4);
+    scene.add(mintKeyLight);
 
-    const lavenderLight = new THREE.DirectionalLight(0xc084fc, 2.0);
-    lavenderLight.position.set(-4, -4, 3);
-    scene.add(lavenderLight);
+    const emeraldRimLight = new THREE.DirectionalLight(0x10b981, 1.9);
+    emeraldRimLight.position.set(-4, -4, 3);
+    scene.add(emeraldRimLight);
 
-    const pointLight = new THREE.PointLight(0xff3b30, 2.2, 8);
-    pointLight.position.set(0, 0, 0);
-    scene.add(pointLight);
+    const corePointLight = new THREE.PointLight(0x10b981, 2.5, 8);
+    corePointLight.position.set(0, 0, 0);
+    scene.add(corePointLight);
 
-    // 6. Interactive Drag & Mouse Orientation
+    // 7. Interactive 360° Drag & Mouse Orientation
     let isDragging = false;
     let previousPointerX = 0;
     let previousPointerY = 0;
@@ -830,13 +858,12 @@
         dragVelocityX = deltaX * 0.008;
         dragVelocityY = deltaY * 0.008;
 
-        coreGroup.rotation.y += dragVelocityX;
-        coreGroup.rotation.x += dragVelocityY;
+        portalGroup.rotation.y += dragVelocityX;
+        portalGroup.rotation.x += dragVelocityY;
 
         previousPointerX = clientX;
         previousPointerY = clientY;
       } else {
-        // Subtle hover tilt
         const rect = container.getBoundingClientRect();
         const normX = (clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
         const normY = (clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
@@ -858,7 +885,6 @@
     window.addEventListener('touchmove', onPointerMove, { passive: true });
     window.addEventListener('touchend', onPointerUp);
 
-    // Resize Handler
     function handleResize() {
       const w = container.clientWidth || 360;
       const h = container.clientHeight || 420;
@@ -868,7 +894,6 @@
     }
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // IntersectionObserver to pause when hero is off-screen
     let isHeroVisible = true;
     const heroObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -877,40 +902,46 @@
     }, { threshold: 0.1 });
     heroObserver.observe(container);
 
-    // Animation Loop
     let time = 0;
-    function animateCore() {
-      requestAnimationFrame(animateCore);
+    function animatePortal() {
+      requestAnimationFrame(animatePortal);
       if (!isHeroVisible || document.hidden) return;
 
       time += 0.02;
 
       if (!isDragging) {
-        // Inertia damping
         dragVelocityX *= 0.94;
         dragVelocityY *= 0.94;
-        coreGroup.rotation.y += dragVelocityX;
-        coreGroup.rotation.x += dragVelocityY;
+        portalGroup.rotation.y += dragVelocityX;
+        portalGroup.rotation.x += dragVelocityY;
 
-        // Autonomous rotation & organic tilt
         if (!prefersReducedMotion) {
-          coreGroup.rotation.y += 0.007;
-          coreGroup.rotation.x += (targetRotX - coreGroup.rotation.x) * 0.06;
-          coreGroup.rotation.z = Math.sin(time * 0.4) * 0.1;
+          portalGroup.rotation.y += 0.007;
+          portalGroup.rotation.x += (targetRotX - portalGroup.rotation.x) * 0.06;
+          portalGroup.rotation.z = Math.sin(time * 0.4) * 0.1;
 
-          ring1.rotation.x += 0.015;
-          ring1.rotation.y += 0.008;
+          ring1.rotation.x += 0.014;
+          ring1.rotation.y += 0.007;
 
-          ring2.rotation.y += 0.012;
-          ring2.rotation.z += 0.009;
+          ring2.rotation.y += 0.011;
+          ring2.rotation.z += 0.008;
 
-          ring3.rotation.z += 0.01;
-          ring3.rotation.x -= 0.007;
+          ring3.rotation.z += 0.009;
+          ring3.rotation.x -= 0.006;
 
           coreMesh.rotation.y -= 0.005;
           wireMesh.rotation.y += 0.008;
         }
       }
+
+      // Orbiting monolith obelisks
+      obelisks.forEach(o => {
+        o.angle += o.speed;
+        o.group.position.x = Math.cos(o.angle) * o.radius;
+        o.group.position.z = Math.sin(o.angle) * o.radius;
+        o.group.position.y = Math.sin(time * 0.8 + o.angle) * 0.5;
+        o.group.rotation.y += 0.015;
+      });
 
       // Orbiting satellites
       satellites.forEach(sat => {
@@ -920,13 +951,13 @@
         sat.mesh.position.y = Math.sin(sat.angle * 2) * 0.4;
       });
 
-      // Pulse core lighting
-      pointLight.intensity = 1.8 + Math.sin(time * 2.5) * 0.8;
+      // Pulsing central emerald core lighting
+      corePointLight.intensity = 2.0 + Math.sin(time * 2.5) * 0.9;
 
       renderer.render(scene, camera);
     }
 
-    animateCore();
+    animatePortal();
   }
 
   // --------------------------------------------------------------------------
@@ -962,10 +993,10 @@
     ringRadii.forEach((r, idx) => {
       const ringGeo = new THREE.RingGeometry(r - 0.02, r, 64);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: idx === 2 ? 0x10b981 : (idx === 1 ? 0x38bdf8 : 0xc084fc),
+        color: idx === 2 ? 0x10b981 : (idx === 1 ? 0x34d399 : 0x059669),
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.35 + idx * 0.1
+        opacity: 0.35 + idx * 0.12
       });
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
       ringMesh.rotation.x = Math.PI / 2;
@@ -973,7 +1004,7 @@
     });
 
     // Crosshairs
-    const lineMat = new THREE.LineBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.25 });
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.28 });
     const crossPoints = [
       new THREE.Vector3(-2.8, 0, 0), new THREE.Vector3(2.8, 0, 0),
       new THREE.Vector3(0, 0, -2.8), new THREE.Vector3(0, 0, 2.8)
@@ -985,8 +1016,8 @@
     // 2. Central AI Surveillance Sensor Core Head
     const sensorBaseGeo = new THREE.CylinderGeometry(0.45, 0.55, 0.2, 32);
     const sensorBaseMat = new THREE.MeshStandardMaterial({
-      color: 0x1a1a24,
-      metalness: 0.9,
+      color: 0x0a160f,
+      metalness: 0.92,
       roughness: 0.2
     });
     const sensorBase = new THREE.Mesh(sensorBaseGeo, sensorBaseMat);
@@ -994,11 +1025,11 @@
 
     const sensorOrbGeo = new THREE.SphereGeometry(0.38, 32, 16);
     const sensorOrbMat = new THREE.MeshStandardMaterial({
-      color: 0x050508,
+      color: 0x030805,
       metalness: 0.95,
       roughness: 0.1,
       emissive: 0x10b981,
-      emissiveIntensity: 0.3
+      emissiveIntensity: 0.35
     });
     const sensorOrb = new THREE.Mesh(sensorOrbGeo, sensorOrbMat);
     sensorOrb.position.y = 0.25;
@@ -1028,7 +1059,7 @@
 
     // 4. Target Anomaly Detection Markers (Pulsing Blips)
     const targets = [
-      { x: 1.4, z: -1.2, color: 0xff3b30, label: 'ANOMALY' },
+      { x: 1.4, z: -1.2, color: 0xef4444, label: 'ANOMALY' },
       { x: -1.6, z: 0.8, color: 0x38bdf8, label: 'ZONE_A' },
       { x: 0.9, z: 1.7, color: 0x10b981, label: 'PATROL' }
     ];
@@ -1040,7 +1071,7 @@
         color: t.color,
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.85
       });
       const tMesh = new THREE.Mesh(tGeo, tMat);
       tMesh.rotation.x = Math.PI / 2;
@@ -1080,7 +1111,6 @@
       isRadarDragging = false;
     });
 
-    // Touch support for radar
     canvas.addEventListener('touchstart', (e) => {
       isRadarDragging = true;
       prevX = e.touches[0].clientX;
@@ -1099,7 +1129,6 @@
       isRadarDragging = false;
     });
 
-    // Visibility Observer
     let isRadarVisible = true;
     const radarObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1117,7 +1146,6 @@
     }
     window.addEventListener('resize', onRadarResize, { passive: true });
 
-    // Radar Loop
     let sweepAngle = 0;
     let radarTime = 0;
     function animateRadar() {
@@ -1136,7 +1164,6 @@
         sweepMesh.rotation.z = sweepAngle;
         sensorOrb.rotation.y = sweepAngle;
 
-        // Pulse targets
         targetMeshes.forEach((tm, idx) => {
           const s = 1.0 + Math.sin(radarTime * 3 + idx) * 0.35;
           tm.scale.set(s, s, s);
@@ -1159,7 +1186,7 @@
       gsap.registerPlugin(ScrollTrigger);
     }
 
-    // Hero Entrance
+    // Hero Entrance Sequence
     const heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
 
     heroTl
@@ -1171,15 +1198,15 @@
       .from('.hero-stats-panel', { scale: 0.95, opacity: 0, duration: 0.8 }, '-=0.5')
       .from('#hero-stage-card', { y: 40, opacity: 0, duration: 1.0 }, '-=0.8');
 
-    // Section Scroll Reveals
+    // Section Scroll Reveals for All 6 Sections
     if (typeof ScrollTrigger !== 'undefined') {
-      const scrollSections = ['#about', '#skills', '#projects', '#contact'];
+      const scrollSections = ['#about', '#projects', '#skills', '#process', '#contact'];
 
       scrollSections.forEach((secId) => {
         const sec = document.querySelector(secId);
         if (!sec) return;
 
-        gsap.from(sec.querySelectorAll('.section-tag, .section-title'), {
+        gsap.from(sec.querySelectorAll('.section-tag, .section-title, .section-subtitle'), {
           scrollTrigger: {
             trigger: sec,
             start: 'top 82%'
@@ -1187,12 +1214,12 @@
           y: 35,
           opacity: 0,
           duration: 0.8,
-          stagger: 0.15,
+          stagger: 0.14,
           ease: 'power3.out'
         });
       });
 
-      // Bento about cards
+      // Bento About Cards
       gsap.from('.about-bio-card, .details-panel', {
         scrollTrigger: {
           trigger: '#about',
@@ -1205,7 +1232,7 @@
         ease: 'power3.out'
       });
 
-      // Skills cards cascade
+      // Skills Cards Cascade
       gsap.from('.skills-grid .skill-card', {
         scrollTrigger: {
           trigger: '#skills',
@@ -1214,11 +1241,11 @@
         y: 35,
         opacity: 0,
         duration: 0.75,
-        stagger: 0.12,
+        stagger: 0.1,
         ease: 'power3.out'
       });
 
-      // Project cards
+      // Featured Project: Rakshak AI
       gsap.from('.featured-project-card', {
         scrollTrigger: {
           trigger: '.featured-project-card',
@@ -1230,19 +1257,33 @@
         ease: 'power3.out'
       });
 
-      gsap.from('.secondary-projects-grid .future-project-card', {
+      // Secondary Projects: Nature Unisex Salon & STEM Quest AI
+      gsap.from('.secondary-projects-grid .project-card-editorial', {
         scrollTrigger: {
           trigger: '.secondary-projects-grid',
           start: 'top 80%'
         },
-        y: 35,
+        y: 40,
+        opacity: 0,
+        duration: 0.85,
+        stagger: 0.2,
+        ease: 'power3.out'
+      });
+
+      // 5-Stage Development Process Cards Cascade
+      gsap.from('.process-grid .process-step-card', {
+        scrollTrigger: {
+          trigger: '#process',
+          start: 'top 75%'
+        },
+        y: 45,
         opacity: 0,
         duration: 0.8,
         stagger: 0.15,
         ease: 'power3.out'
       });
 
-      // Contact Grid
+      // Contact Info & Form Cards
       gsap.from('.contact-info-card, .contact-form-card', {
         scrollTrigger: {
           trigger: '#contact',
@@ -1288,7 +1329,7 @@
 
     function render2D() {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#10b981';
 
       stars.forEach(s => {
         s.y += s.speed;
@@ -1304,7 +1345,7 @@
   }
 
   // --------------------------------------------------------------------------
-  // 18. INITIALIZE ALL ENGINES
+  // 18. INITIALIZE ALL ENGINES ON LOAD
   // --------------------------------------------------------------------------
   window.addEventListener('DOMContentLoaded', () => {
     init3DUniverse();
