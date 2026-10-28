@@ -510,18 +510,17 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle cosmos geometry with emerald, mint, starlight and subtle cyan highlights
+    // Particle cosmos geometry with cyber lavender, neon cyan, white, and crimson
     const particleCount = window.innerWidth < 768 ? 650 : 1300;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
     const palette = [
-      new THREE.Color('#10b981'), // Luminous Emerald
-      new THREE.Color('#34d399'), // Mint
-      new THREE.Color('#059669'), // Forest Green
-      new THREE.Color('#e2e8f0'), // Starlight Silver
-      new THREE.Color('#38bdf8')  // Subtle Cyan Telemetry
+      new THREE.Color('#c084fc'), // Cyber lavender
+      new THREE.Color('#38bdf8'), // Neon cyan
+      new THREE.Color('#ffffff'), // Crisp white
+      new THREE.Color('#ff3b30')  // Brand crimson
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -545,8 +544,8 @@
     const pCtx = pCanvas.getContext('2d');
     const grad = pCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.35, 'rgba(52,211,153,0.75)');
-    grad.addColorStop(1, 'rgba(16,185,129,0)');
+    grad.addColorStop(0.35, 'rgba(192,132,252,0.75)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
     pCtx.fillStyle = grad;
     pCtx.fillRect(0, 0, 32, 32);
 
@@ -682,64 +681,64 @@
     const portalGroup = new THREE.Group();
     scene.add(portalGroup);
 
-    // 1. Faceted Central Obsidian & Emerald Monolith Core
+    // 1. Faceted Central Quantum Core (Icosahedron)
     const coreGeo = new THREE.IcosahedronGeometry(1.35, 0);
     const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x04190e,
-      roughness: 0.15,
-      metalness: 0.92,
-      emissive: 0x10b981,
+      color: 0x120826,
+      roughness: 0.18,
+      metalness: 0.88,
+      emissive: 0x8b5cf6,
       emissiveIntensity: 0.45,
       flatShading: true
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     portalGroup.add(coreMesh);
 
-    // Core Emerald Wireframe Lattice
+    // Core Wireframe Cage
     const wireGeo = new THREE.IcosahedronGeometry(1.38, 1);
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x34d399,
+      color: 0x38bdf8,
       wireframe: true,
       transparent: true,
-      opacity: 0.45
+      opacity: 0.4
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
     portalGroup.add(wireMesh);
 
     // 2. Gimbal Portal Rings
-    // Ring 1 (Equatorial Gyro Ring - Emerald emissive)
+    // Ring 1 (Inner Torus - Lavender / White)
     const ring1Geo = new THREE.TorusGeometry(1.95, 0.038, 16, 80);
     const ring1Mat = new THREE.MeshStandardMaterial({
-      color: 0x10b981,
+      color: 0xffffff,
       metalness: 0.95,
-      roughness: 0.18,
-      emissive: 0x059669,
-      emissiveIntensity: 0.5
+      roughness: 0.2,
+      emissive: 0xc084fc,
+      emissiveIntensity: 0.35
     });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
     portalGroup.add(ring1);
 
-    // Ring 2 (Meridian Ring - Mint / Frosted Silver, inclined 58 deg)
+    // Ring 2 (Middle Torus - Neon Cyan, inclined 55 deg)
     const ring2Geo = new THREE.TorusGeometry(2.4, 0.032, 16, 90);
     const ring2Mat = new THREE.MeshStandardMaterial({
-      color: 0x6ee7b7,
+      color: 0x38bdf8,
       metalness: 0.9,
-      roughness: 0.22,
-      emissive: 0x10b981,
+      roughness: 0.25,
+      emissive: 0x0284c7,
       emissiveIntensity: 0.35
     });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.x = Math.PI / 3.1;
+    ring2.rotation.x = Math.PI / 3.2;
     portalGroup.add(ring2);
 
-    // Ring 3 (Outer Dimensional Horizon Ring - Obsidian & Teal accent)
+    // Ring 3 (Outer Torus - Brand Crimson, inclined -45 deg)
     const ring3Geo = new THREE.TorusGeometry(2.85, 0.026, 16, 100);
     const ring3Mat = new THREE.MeshStandardMaterial({
-      color: 0x34d399,
-      metalness: 0.88,
-      roughness: 0.25,
-      emissive: 0x38bdf8,
-      emissiveIntensity: 0.3
+      color: 0xff3b30,
+      metalness: 0.85,
+      roughness: 0.3,
+      emissive: 0xff3b30,
+      emissiveIntensity: 0.4
     });
     const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
     ring3.rotation.y = Math.PI / 4;
@@ -750,10 +749,10 @@
     const obeliskCount = 4;
     const obeliskGeo = new THREE.BoxGeometry(0.12, 1.25, 0.12);
     const obeliskEdges = new THREE.EdgesGeometry(obeliskGeo);
-    const obeliskLineMat = new THREE.LineBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.85 });
+    const obeliskLineMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 });
 
     const obeliskMeshMat = new THREE.MeshStandardMaterial({
-      color: 0x04190e,
+      color: 0x101018,
       roughness: 0.2,
       metalness: 0.95
     });
@@ -779,7 +778,7 @@
     const satellites = [];
     const satCount = 3;
     const satGeo = new THREE.SphereGeometry(0.08, 16, 16);
-    const satMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
+    const satMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
     for (let i = 0; i < satCount; i++) {
       const sat = new THREE.Mesh(satGeo, satMat);
@@ -806,7 +805,7 @@
 
     const dustMat = new THREE.PointsMaterial({
       size: 0.06,
-      color: 0x10b981,
+      color: 0xc084fc,
       transparent: true,
       opacity: 0.65
     });
@@ -814,18 +813,18 @@
     portalGroup.add(dustPoints);
 
     // 6. Atmospheric Lighting
-    const ambientLight = new THREE.AmbientLight(0x04180d, 1.6);
+    const ambientLight = new THREE.AmbientLight(0x221133, 1.4);
     scene.add(ambientLight);
 
-    const mintKeyLight = new THREE.DirectionalLight(0x34d399, 2.4);
-    mintKeyLight.position.set(4, 5, 4);
-    scene.add(mintKeyLight);
+    const cyanKeyLight = new THREE.DirectionalLight(0x38bdf8, 2.4);
+    cyanKeyLight.position.set(4, 5, 4);
+    scene.add(cyanKeyLight);
 
-    const emeraldRimLight = new THREE.DirectionalLight(0x10b981, 1.9);
-    emeraldRimLight.position.set(-4, -4, 3);
-    scene.add(emeraldRimLight);
+    const lavenderRimLight = new THREE.DirectionalLight(0xc084fc, 2.0);
+    lavenderRimLight.position.set(-4, -4, 3);
+    scene.add(lavenderRimLight);
 
-    const corePointLight = new THREE.PointLight(0x10b981, 2.5, 8);
+    const corePointLight = new THREE.PointLight(0xff3b30, 2.2, 8);
     corePointLight.position.set(0, 0, 0);
     scene.add(corePointLight);
 
@@ -993,10 +992,10 @@
     ringRadii.forEach((r, idx) => {
       const ringGeo = new THREE.RingGeometry(r - 0.02, r, 64);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: idx === 2 ? 0x10b981 : (idx === 1 ? 0x34d399 : 0x059669),
+        color: idx === 2 ? 0x10b981 : (idx === 1 ? 0x38bdf8 : 0xc084fc),
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.35 + idx * 0.12
+        opacity: 0.35 + idx * 0.1
       });
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
       ringMesh.rotation.x = Math.PI / 2;
@@ -1004,7 +1003,7 @@
     });
 
     // Crosshairs
-    const lineMat = new THREE.LineBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.28 });
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.25 });
     const crossPoints = [
       new THREE.Vector3(-2.8, 0, 0), new THREE.Vector3(2.8, 0, 0),
       new THREE.Vector3(0, 0, -2.8), new THREE.Vector3(0, 0, 2.8)
