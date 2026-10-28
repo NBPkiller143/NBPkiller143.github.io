@@ -1244,33 +1244,23 @@
         ease: 'power3.out'
       });
 
-      // Featured Project: Rakshak AI
-      gsap.from('.featured-project-card', {
-        scrollTrigger: {
-          trigger: '.featured-project-card',
-          start: 'top 80%'
-        },
-        y: 45,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out'
-      });
-
-      // Secondary Projects: Nature Unisex Salon & STEM Quest AI
-      gsap.from('.secondary-projects-grid .project-card-editorial', {
-        scrollTrigger: {
-          trigger: '.secondary-projects-grid',
-          start: 'top 80%'
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.85,
-        stagger: 0.2,
-        ease: 'power3.out'
+      // Featured Project Cards (Rakshak AI & Nature Unisex Salon)
+      const projectCards = document.querySelectorAll('.featured-project-card');
+      projectCards.forEach((card) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 82%'
+          },
+          y: 45,
+          opacity: 0,
+          duration: 0.85,
+          ease: 'power3.out'
+        });
       });
 
       // 5-Stage Development Process Cards Cascade
-      gsap.from('.process-grid .process-step-card', {
+      gsap.from('.process-timeline .process-card', {
         scrollTrigger: {
           trigger: '#process',
           start: 'top 75%'
@@ -1278,7 +1268,7 @@
         y: 45,
         opacity: 0,
         duration: 0.8,
-        stagger: 0.15,
+        stagger: 0.12,
         ease: 'power3.out'
       });
 
