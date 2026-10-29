@@ -1549,8 +1549,6 @@ section {
     padding-left: calc(40px + 0.85rem);
   }
 }
-  border-color: var(--border-medium);
-}
 
 .contact-form-card {
   padding: 2.25rem;
