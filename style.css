@@ -163,6 +163,12 @@ a {
   z-index: 1;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .container {
     padding: 0 2.5rem;
@@ -1203,7 +1209,8 @@ section {
 
 @media (max-width: 640px) {
   .featured-project-card {
-    padding: 1.5rem;
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
   }
 }
 
@@ -1232,6 +1239,17 @@ section {
   grid-template-columns: 1fr;
   gap: 2.5rem;
   align-items: center;
+}
+
+@media (max-width: 640px) {
+  .featured-layout {
+    gap: 1.75rem;
+  }
+}
+
+.featured-layout > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media (min-width: 960px) {
@@ -1421,6 +1439,8 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .channel-item {
@@ -1434,7 +1454,9 @@ section {
   text-decoration: none;
   color: var(--text-primary);
   transition: all var(--transition-fast);
-  gap: 0.75rem;
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .channel-item:hover {
@@ -1448,11 +1470,12 @@ section {
   align-items: center;
   gap: 0.85rem;
   min-width: 0;
+  flex: 1;
 }
 
 .channel-icon {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.04);
   display: flex;
@@ -1464,17 +1487,26 @@ section {
 
 .channel-title {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  margin-bottom: 0.2rem;
 }
 
 .channel-val {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--text-primary);
-  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.channel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .copy-email-btn {
@@ -1491,10 +1523,32 @@ section {
   gap: 0.4rem;
   transition: all var(--transition-fast);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .copy-email-btn:hover {
   background: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-medium);
+}
+
+@media (max-width: 540px) {
+  .channel-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.95rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .channel-meta {
+    width: 100%;
+  }
+
+  .channel-actions {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: calc(40px + 0.85rem);
+  }
+}
   border-color: var(--border-medium);
 }
 
@@ -1830,7 +1884,7 @@ section {
   height: 100%;
   display: block;
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .hero-3d-canvas:active {
@@ -1970,7 +2024,7 @@ section {
   height: 100%;
   display: block;
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .rakshak-3d-canvas:active {
@@ -2134,26 +2188,35 @@ section {
   margin-top: 1rem;
   margin-bottom: 1.25rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .browser-mockup-bar {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0.85rem;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid var(--border-ultra-subtle);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .browser-dots {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .browser-dots span {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -2166,32 +2229,47 @@ section {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.25rem 0.65rem;
+  gap: 0.4rem;
+  padding: 0.25rem 0.55rem;
   border-radius: var(--radius-xs);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-ultra-subtle);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   color: var(--text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+}
+
+.browser-address-bar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  display: block;
 }
 
 .browser-mockup-content {
-  padding: 1.25rem;
+  padding: 1rem;
   background: radial-gradient(circle at 50% 30%, rgba(192, 132, 252, 0.08) 0%, rgba(6, 6, 12, 0.98) 100%);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .mockup-salon-banner {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.55rem;
   border-radius: var(--radius-xs);
-  padding: 1rem;
+  padding: 0.85rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-subtle);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .mockup-salon-badge {
@@ -2201,20 +2279,30 @@ section {
   color: var(--accent-lavender);
 }
 
+.mockup-salon-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mockup-salon-title,
 .mockup-salon-h {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-pure);
+  line-height: 1.3;
 }
 
+.mockup-salon-sub,
 .mockup-salon-p {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
-.mockup-salon-btn {
+.mockup-salon-btn,
+.mockup-salon-cta-pill {
   align-self: flex-start;
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -2223,46 +2311,68 @@ section {
   background: #ffffff;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
+  display: inline-block;
+  text-decoration: none;
 }
 
-/* STEM Knowledge Pathways Graphic */
-.stem-knowledge-stage {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1.25rem;
-  border-radius: var(--radius-sm);
-  background: rgba(10, 10, 18, 0.85);
-  border: 1px solid var(--border-subtle);
-  margin-top: 1rem;
-  margin-bottom: 1.25rem;
-}
+/* ==========================================================================
+   GLOBAL MOBILE OVERFLOW & RESPONSIVENESS GUARDS
+   ========================================================================== */
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
 
-.stem-node {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-xs);
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--border-ultra-subtle);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-primary);
-}
+  .section-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    margin-bottom: 2rem;
+  }
 
-.stem-node-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: 0 0 6px var(--accent-cyan);
-}
+  .hero-title {
+    font-size: clamp(2rem, 9vw, 3.2rem);
+  }
 
-.stem-connector {
-  width: 2px;
-  height: 12px;
-  background: linear-gradient(180deg, var(--accent-cyan), transparent);
-  margin-left: 1.15rem;
+  .hero-stats-panel {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+
+  .stat-num {
+    font-size: 1.55rem;
+  }
+
+  .about-bio-card,
+  .details-panel,
+  .skill-card,
+  .contact-info-card,
+  .contact-form-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .arch-box {
+    padding: 1rem;
+  }
+
+  .rakshak-canvas-stage {
+    height: 175px;
+  }
+
+  .rakshak-overlay-telemetry {
+    font-size: 0.58rem;
+    left: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .process-timeline {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .process-card {
+    padding: 1.25rem 1rem;
+    min-height: auto;
+  }
 }
