@@ -222,7 +222,10 @@
 
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
-    const subject = subjectInput ? subjectInput.value.trim() : '';
+    const serviceInput = document.getElementById('msg-service');
+    const service = serviceInput ? serviceInput.value.trim() : '';
+    const rawSubject = subjectInput ? subjectInput.value.trim() : '';
+    const subject = rawSubject || (service ? `Inquiry: ${service}` : 'Portfolio Inquiry');
     const body = bodyInput.value.trim();
 
     if (!name || !email || !body) {
@@ -234,7 +237,7 @@
       return;
     }
 
-    const payload = { name, email, subject: subject || 'Portfolio Inquiry', message: body };
+    const payload = { name, email, service: service || 'General', subject, message: body };
 
     if (sendBtn) {
       sendBtn.disabled = true;
@@ -1199,7 +1202,7 @@
 
     // Section Scroll Reveals for All 6 Sections
     if (typeof ScrollTrigger !== 'undefined') {
-      const scrollSections = ['#about', '#projects', '#skills', '#process', '#contact'];
+      const scrollSections = ['#about', '#skills', '#projects', '#services', '#process', '#contact'];
 
       scrollSections.forEach((secId) => {
         const sec = document.querySelector(secId);
@@ -1272,6 +1275,19 @@
         ease: 'power3.out'
       });
 
+      // Services Grid Cards Cascade
+      gsap.from('.services-grid .service-card', {
+        scrollTrigger: {
+          trigger: '#services',
+          start: 'top 75%'
+        },
+        y: 35,
+        opacity: 0,
+        duration: 0.75,
+        stagger: 0.1,
+        ease: 'power3.out'
+      });
+
       // Contact Info & Form Cards
       gsap.from('.contact-info-card, .contact-form-card', {
         scrollTrigger: {
@@ -1336,7 +1352,375 @@
   // --------------------------------------------------------------------------
   // 18. INITIALIZE ALL ENGINES ON LOAD
   // --------------------------------------------------------------------------
+
+  // --------------------------------------------------------------------------
+  // 19. THEME SWITCHER (DARK / LIGHT MODE)
+  // --------------------------------------------------------------------------
+  function initThemeToggle() {
+    const desktopBtn = document.getElementById('theme-toggle');
+    const mobileBtn = document.getElementById('mobile-theme-toggle');
+    const mobileLabel = document.getElementById('mobile-theme-label');
+
+    const STORAGE_KEY = 'agy_portfolio_theme';
+    let savedTheme = null;
+    try {
+      savedTheme = localStorage.getItem(STORAGE_KEY);
+    } catch (e) {}
+
+    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialTheme = savedTheme ? savedTheme : (systemPrefersLight ? 'light' : 'dark');
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (desktopBtn) desktopBtn.setAttribute('title', 'Switch to dark theme');
+        if (mobileLabel) mobileLabel.textContent = 'LIGHT';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (desktopBtn) desktopBtn.setAttribute('title', 'Switch to light theme');
+        if (mobileLabel) mobileLabel.textContent = 'DARK';
+      }
+    }
+
+    applyTheme(initialTheme);
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const nextTheme = current === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem(STORAGE_KEY, nextTheme);
+      } catch (e) {}
+    }
+
+    if (desktopBtn) desktopBtn.addEventListener('click', toggleTheme);
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+  }
+
+  // --------------------------------------------------------------------------
+  // 20. INTERACTIVE PROJECT FILTERING ENGINE
+  // --------------------------------------------------------------------------
+  function initProjectFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    if (!filterButtons.length || !projectItems.length) return;
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        projectItems.forEach(item => {
+          const cat = item.getAttribute('data-category');
+          const isMatch = filter === 'all' || cat === filter;
+
+          if (isMatch) {
+            item.classList.remove('filtered-out');
+            if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+              gsap.fromTo(item, 
+                { opacity: 0, y: 20 }, 
+                { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+              );
+            } else {
+              item.style.opacity = '1';
+              item.style.display = '';
+            }
+          } else {
+            item.classList.add('filtered-out');
+          }
+        });
+
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      });
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 21. INTERACTIVE CASE STUDY MODAL ENGINE
+  // --------------------------------------------------------------------------
+  function initCaseStudyModal() {
+    const modal = document.getElementById('case-study-modal');
+    const backdrop = document.getElementById('cs-modal-backdrop');
+    const closeBtn = document.getElementById('cs-modal-close-btn');
+    const modalBody = document.getElementById('cs-modal-body');
+    const modalBadge = document.getElementById('cs-modal-badge');
+    const modalId = document.getElementById('cs-modal-id');
+
+    if (!modal || !modalBody) return;
+
+    const caseStudies = {
+      rakshak: {
+        badge: '// FLAGSHIP BUILD 01',
+        id: 'RAKSHAK_AI_DEEPDIVE',
+        title: 'Rakshak AI — Autonomous Campus Sentinel & Anomaly Detection',
+        category: 'Computer Vision / Edge AI Surveillance',
+        status: 'Active Prototype & Telemetry Dashboard',
+        role: 'Creator & Lead Developer',
+        timeline: '2025 – Present',
+        stack: ['Python', 'Flask', 'OpenCV', 'YOLOv8', 'SQLite', 'REST APIs', 'Vanilla JS'],
+        problem: 'Traditional campus surveillance relies on passive CCTV recording and fatiguing human monitoring, causing delayed reaction times during emergency incidents, unauthorized breaches, and safety hazards.',
+        solution: 'Built an end-to-end edge surveillance pipeline using OpenCV and YOLOv8 to continuously process video streams, classify anomalous motion, and trigger instant security notifications. Coupled with a lightweight Python/Flask backend and a real-time responsive command console.',
+        highlights: [
+          'Real-time edge inference pipeline with under 400ms anomaly notification latency.',
+          'Proactive geofenced safety zone boundary monitoring with automated threshold alerts.',
+          'Zero cloud lock-in: runs efficiently on local hardware with lightweight SQLite event indexing.',
+          'Privacy-focused architecture: visual processing occurs on premise without uploading private feeds to public clouds.'
+        ],
+        actions: [
+          { text: 'VIEW GITHUB REPOSITORY', url: 'https://github.com/NBPkiller143/Rakshak-AI', primary: true },
+          { text: 'EXPLORE LIVE TELEMETRY RADAR', url: '#projects', primary: false, scroll: true }
+        ]
+      },
+      salon: {
+        badge: '// CLIENT BUILD 02',
+        id: 'SALON_CLIENT_PRODUCTION',
+        title: 'Nature Unisex Salon — Commercial Client Web Platform',
+        category: 'Client Production Web Application',
+        status: 'Live on Render Cloud',
+        role: 'Frontend Architect & UI Designer',
+        timeline: 'Production Deliverable',
+        stack: ['HTML5', 'CSS3', 'JavaScript ES6+', 'Responsive Design', 'Render Cloud'],
+        problem: 'The business required a polished, high-end online presence to showcase hair, skin, and wellness services, communicate pricing transparency, and drive bookings without paying recurring subscriptions for heavyweight CMS platforms.',
+        solution: 'Engineered a bespoke zero-dependency static web application designed with modern editorial aesthetics, rapid asset delivery, interactive grooming service menus, and mobile-first booking paths that guide clients directly into scheduled appointments.',
+        highlights: [
+          'Sub-second First Contentful Paint (<0.8s) with optimized image compression and zero bloated scripts.',
+          'Intuitive categorized service hierarchy covering haircuts, spa packages, and therapeutic treatments.',
+          'Frictionless booking funnels optimized for mobile phone callers and direct message scheduling.',
+          'Deployed to production cloud on Render with zero ongoing software licensing costs for the business owner.'
+        ],
+        actions: [
+          { text: 'LAUNCH LIVE CLIENT SITE', url: 'https://nature-unisex-salon.onrender.com/', primary: true },
+          { text: 'INSPECT SOURCE REPOSITORY', url: 'https://github.com/NBPkiller143/Nature-Unisex-Salon', primary: false }
+        ]
+      },
+      shadowtrail: {
+        badge: '// CREATIVE BUILD 03',
+        id: 'SHADOW_TRAIL_ARCADE_ENGINE',
+        title: 'SHADOW TRAIL: The Clean Path — Environmental Arcade Game (v3.0)',
+        category: 'Browser Game Engine / Civic Edutainment',
+        status: 'Live on GitHub Pages',
+        role: 'Solo Game Developer & Creative Designer',
+        timeline: 'Production v3.0 Release',
+        stack: ['HTML5 Canvas 2D', 'JavaScript ES6+', 'Game Physics', 'Web Audio API', 'LocalStorage', 'GitHub Pages'],
+        problem: 'Gamifying civic responsibility and environmental sanitation (inspired by the Swachh Bharat mission) in a way that feels intensely fun, fast-paced, and fluid across both smartphones and desktop computers without heavy third-party game engines.',
+        solution: 'Programmed a custom 60 FPS requestAnimationFrame canvas game engine with procedural obstacle spawning, dynamic collision vectors, waste-sorting mechanics, responsive virtual joystick inputs, and synthesizer audio generated in real time via the Web Audio API.',
+        highlights: [
+          'Pure vanilla 60 FPS HTML5 Canvas performance with zero framework overhead or loading delays.',
+          'Custom vector collision detection and object pooling for zero frame stutter or garbage collection lag.',
+          'Dynamic audio synthesizers: chimes, retro jumps, and alerts synthesized purely via Web Audio API oscillators.',
+          'Persistent local high scores, progressive difficulty scaling, and responsive touchscreen controls.'
+        ],
+        actions: [
+          { text: 'PLAY LIVE ARCADE GAME', url: 'https://nbpkiller143.github.io/shadow-trail/', primary: true },
+          { text: 'VIEW SOURCE CODE REPOSITORY', url: 'https://github.com/NBPkiller143/shadow-trail', primary: false }
+        ]
+      },
+      stem: {
+        badge: '// CONCEPT BUILD 04',
+        id: 'STEM_QUEST_SYSTEM_SPEC',
+        title: 'STEM Quest AI — Resilient EdTech Platform Architecture',
+        category: 'System Architecture / Low-Connectivity Education',
+        status: 'Conceptual Blueprint Spec',
+        role: 'System Architect & Concept Designer',
+        timeline: 'Architecture Exploration',
+        stack: ['System Architecture', 'EdTech UX', 'IndexedDB Offline Cache', 'Modular APIs', 'Educational Tech'],
+        problem: 'Digital educational platforms frequently break down or become inaccessible in areas with intermittent or low-bandwidth internet connectivity, widening the educational divide for students studying STEM subjects.',
+        solution: 'Developed an architectural blueprint for an offline-first learning platform with modular simulation containers for physics and mathematics, decoupled state reconciliation via IndexedDB, and asynchronous delta synchronization.',
+        highlights: [
+          'Offline-first client persistence ensuring uninterrupted access to learning modules during network dropouts.',
+          'Interactive physics inquiry simulation models allowing parameter manipulation and empirical observation.',
+          'Algorithmic mathematics formula graphing modules engineered for rapid mathematical intuition.',
+          'Low-memory, accessible UI design specification designed to operate smoothly on entry-level student devices.'
+        ],
+        actions: [
+          { text: 'INQUIRE ABOUT THIS ARCHITECTURE', url: '#contact', primary: true, service: 'AI-Powered Web Experiences', scroll: true }
+        ]
+      }
+    };
+
+    function openModal(studyKey) {
+      const data = caseStudies[studyKey];
+      if (!data) return;
+
+      if (modalBadge) modalBadge.textContent = data.badge;
+      if (modalId) modalId.textContent = data.id;
+
+      let actionsHTML = '';
+      data.actions.forEach(act => {
+        if (act.scroll) {
+          actionsHTML += `
+            <a href="${act.url}" class="btn ${act.primary ? 'btn-primary' : 'btn-secondary'} cs-action-link" ${act.service ? `data-select-service="${act.service}"` : ''} style="padding: 0.6rem 1.25rem;">
+              ${act.text} ↗
+            </a>
+          `;
+        } else {
+          actionsHTML += `
+            <a href="${act.url}" target="_blank" rel="noopener noreferrer" class="btn ${act.primary ? 'btn-primary' : 'btn-secondary'}" style="padding: 0.6rem 1.25rem;">
+              ${act.text} ↗
+            </a>
+          `;
+        }
+      });
+
+      const stackPills = data.stack.map(s => `<span class="skill-pill verified">${s}</span>`).join('');
+      const highlightsHTML = data.highlights.map(h => `<li>${h}</li>`).join('');
+
+      modalBody.innerHTML = `
+        <div class="cs-section">
+          <span class="cs-section-label">// PROJECT OVERVIEW</span>
+          <h2 class="cs-section-heading">${data.title}</h2>
+          <div class="cs-meta-grid">
+            <div class="cs-meta-item">
+              <span class="cs-meta-key">Category</span>
+              <span class="cs-meta-val">${data.category}</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-key">Status</span>
+              <span class="cs-meta-val" style="color: var(--accent-emerald);">● ${data.status}</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-key">Role</span>
+              <span class="cs-meta-val">${data.role}</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-key">Timeline</span>
+              <span class="cs-meta-val">${data.timeline}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <span class="cs-section-label">// THE CHALLENGE</span>
+          <p class="cs-section-text">${data.problem}</p>
+        </div>
+
+        <div class="cs-section">
+          <span class="cs-section-label">// THE ARCHITECTURAL SOLUTION</span>
+          <p class="cs-section-text">${data.solution}</p>
+        </div>
+
+        <div class="cs-section">
+          <span class="cs-section-label">// KEY ACHIEVEMENTS & METRICS</span>
+          <ul class="cs-highlights-list">
+            ${highlightsHTML}
+          </ul>
+        </div>
+
+        <div class="cs-section">
+          <span class="cs-section-label">// TECHNOLOGY STACK</span>
+          <div class="skill-tags">
+            ${stackPills}
+          </div>
+        </div>
+
+        <div class="cs-actions-row">
+          ${actionsHTML}
+        </div>
+      `;
+
+      modal.style.display = 'flex';
+      requestAnimationFrame(() => {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+
+      const scrollLinks = modalBody.querySelectorAll('.cs-action-link');
+      scrollLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const svc = link.getAttribute('data-select-service');
+          closeModal();
+          if (svc) {
+            const svcSelect = document.getElementById('msg-service');
+            if (svcSelect) svcSelect.value = svc;
+          }
+        });
+      });
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!modal.classList.contains('open')) {
+          modal.style.display = 'none';
+        }
+      }, 350);
+    }
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.cs-trigger-btn, [data-case-study]');
+      if (trigger) {
+        e.preventDefault();
+        const studyKey = trigger.getAttribute('data-case-study');
+        if (studyKey) openModal(studyKey);
+      }
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 22. SERVICE INQUIRY PRE-FILL & SMOOTH DISPATCH
+  // --------------------------------------------------------------------------
+  function initServiceInquiry() {
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-service-inquire, [data-service]');
+      if (!btn) return;
+
+      const serviceName = btn.getAttribute('data-service');
+      if (!serviceName) return;
+
+      const serviceSelect = document.getElementById('msg-service');
+      const subjectInput = document.getElementById('msg-subject');
+      const bodyInput = document.getElementById('msg-body');
+
+      if (serviceSelect) {
+        serviceSelect.value = serviceName;
+      }
+
+      if (subjectInput && !subjectInput.value.trim()) {
+        subjectInput.value = `Inquiry: ${serviceName}`;
+      }
+
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const headerHeight = 74;
+        const targetPos = contactSection.getBoundingClientRect().top + window.pageYOffset - (headerHeight + 10);
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+          if (bodyInput) bodyInput.focus();
+        }, 600);
+      }
+    });
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
+    initProjectFilter();
+    initCaseStudyModal();
+    initServiceInquiry();
     init3DUniverse();
     initHero3DCore();
     initRakshak3DRadar();
