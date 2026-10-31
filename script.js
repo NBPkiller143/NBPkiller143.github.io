@@ -357,11 +357,21 @@
   // 9. CYBER MAGNETIC CURSOR (DESKTOP)
   // --------------------------------------------------------------------------
   function initCustomCursor() {
-    if (isTouchDevice) return;
-
     const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
+
+    if (isTouchDevice || window.innerWidth <= 1024 || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      dot.style.display = 'none';
+      ring.style.display = 'none';
+      return;
+    }
+
+    // Touch safeguard: if touch interaction is detected at all, immediately hide cursor
+    window.addEventListener('touchstart', () => {
+      dot.style.display = 'none';
+      ring.style.display = 'none';
+    }, { passive: true, once: true });
 
     let mouseX = -100;
     let mouseY = -100;

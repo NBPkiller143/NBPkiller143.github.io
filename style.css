@@ -1794,7 +1794,7 @@ section {
   transition: width 0.08s ease-out;
 }
 
-/* 2. Custom Cyber Magnetic Cursor (Desktop) */
+/* 2. Custom Cyber Magnetic Cursor (Desktop only) */
 .cursor-dot {
   position: fixed;
   top: 0;
@@ -1809,6 +1809,7 @@ section {
   box-shadow: 0 0 10px #ffffff;
   opacity: 0;
   transition: opacity 0.25s ease;
+  display: none;
 }
 
 .cursor-ring {
@@ -1829,6 +1830,7 @@ section {
               border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.25s ease;
+  display: none;
 }
 
 .cursor-ring.active {
@@ -1839,9 +1841,18 @@ section {
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.4);
 }
 
-@media (hover: none) and (pointer: coarse) {
+@media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+  .cursor-dot, .cursor-ring {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
   .cursor-dot, .cursor-ring {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 }
 
