@@ -314,8 +314,10 @@
       }
     } catch (err) {
       // Graceful client-side fallback for static hosting (GitHub Pages)
-      const formattedBody = `Hello Nameet,\n\n${body}\n\nFrom: ${name} (${email})`;
-      const mailtoUri = `mailto:nameetbehera6@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(formattedBody)}`;
+      const serviceLine = service ? `Service: ${service}\n` : '';
+      const formattedBody = `Hello Nameet,\n\n${body}\n\n${serviceLine}From: ${name} (${email})`;
+      const mailtoSubject = encodeURIComponent(subject || (service ? `Inquiry: ${service}` : 'Portfolio Inquiry'));
+      const mailtoUri = `mailto:nameetbehera6@gmail.com?subject=${mailtoSubject}&body=${encodeURIComponent(formattedBody)}`;
 
       if (statusBox) {
         statusBox.className = 'form-status-box success';
