@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description" content="404 — Page Not Found | Nameet Behera Portfolio" />
+  <meta name="theme-color" content="#050508" />
+  <title>404 — Orbital Coordinates Not Found | Nameet Behera</title>
+
+  <!-- Google Fonts: Inter, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Favicon / Brand Tab Logo -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .error-page-wrapper {
+      min-height: calc(100vh - 80px - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .error-card {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      padding: 3.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .error-glitch-display {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 15vw, 8.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--text-pure);
+      text-shadow: 0 0 30px rgba(255, 59, 48, 0.35), 0 0 60px rgba(192, 132, 252, 0.2);
+      position: relative;
+      display: inline-block;
+    }
+
+    .error-glitch-display::after {
+      content: '404';
+      position: absolute;
+      left: 2px;
+      top: -2px;
+      color: var(--accent-red);
+      opacity: 0.7;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      animation: glitch-anim 2.5s infinite ease-in-out alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-2px, 1px); }
+      40% { transform: translate(2px, -1px); }
+      60% { transform: translate(-1px, 2px); }
+      80% { transform: translate(1px, -2px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .error-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-pure);
+      letter-spacing: -0.01em;
+    }
+
+    .error-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html#home" class="brand-logo" aria-label="Nameet Behera Homepage">
+        <div class="nb-dot-logo">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="3" fill="#ff3b30"></circle>
+            <circle cx="8" cy="20" r="3" fill="#ffffff"></circle>
+            <circle cx="8" cy="32" r="3" fill="#ffffff"></circle>
+            <circle cx="8" cy="44" r="3" fill="#ffffff"></circle>
+            <circle cx="16" cy="18" r="3" fill="#ffffff"></circle>
+            <circle cx="24" cy="28" r="3" fill="#ffffff"></circle>
+            <circle cx="32" cy="8" r="3" fill="#ffffff"></circle>
+            <circle cx="32" cy="20" r="3" fill="#ffffff"></circle>
+            <circle cx="32" cy="32" r="3" fill="#ffffff"></circle>
+            <circle cx="32" cy="44" r="3" fill="#ffffff"></circle>
+          </svg>
+        </div>
+        <span class="brand-name">
+          Nameet Behera
+          <span class="red-dot"></span>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+        <a href="index.html#projects" class="connect-btn">
+          EXPLORE WORK ↗
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ambient Background -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div class="dot-grid-bg" aria-hidden="true"></div>
+
+  <!-- Main Error Content -->
+  <main class="error-page-wrapper">
+    <div class="glass-card error-card">
+      <div class="hud-corner-tl"></div>
+      <div class="hud-corner-tr"></div>
+      <div class="hud-corner-bl"></div>
+      <div class="hud-corner-br"></div>
+
+      <div class="pill-badge" style="border-color: rgba(255, 59, 48, 0.4); color: var(--accent-red); background: rgba(255, 59, 48, 0.08);">
+        <span class="red-dot"></span>
+        <span>ERROR // ROUTE_NOT_FOUND</span>
+      </div>
+
+      <div class="error-glitch-display">404</div>
+
+      <h1 class="error-title">Lost in Orbital Drift</h1>
+      <p class="error-desc">
+        The digital coordinate you requested does not exist on this cluster, has been relocated, or is temporarily out of range.
+      </p>
+
+      <div class="error-actions">
+        <a href="index.html#home" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+          RETURN TO HOME BASE ↗
+        </a>
+        <a href="index.html#projects" class="btn btn-secondary" style="padding: 0.75rem 1.5rem;">
+          VIEW PROJECTS
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-bottom" style="border: none; padding: 0; justify-content: space-between; display: flex; flex-wrap: wrap; gap: 1rem;">
+        <span>© 2026 Nameet Kumar Behera. All rights reserved.</span>
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Error 404 Resolution Protocol</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme initialization from localStorage
+    const savedTheme = localStorage.getItem('agy_portfolio_theme');
+    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialTheme = savedTheme ? savedTheme : (systemPrefersLight ? 'light' : 'dark');
+    if (initialTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const next = isLight ? 'dark' : 'light';
+        if (next === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        localStorage.setItem('agy_portfolio_theme', next);
+      });
+    }
+  </script>
+</body>
+</html>

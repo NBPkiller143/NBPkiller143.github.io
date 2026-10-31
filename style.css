@@ -3124,3 +3124,105 @@ section {
   padding-top: 1rem;
   border-top: 1px solid var(--border-subtle);
 }
+
+
+/* ==========================================================================
+   CINEMATIC CYBER PRELOADER
+   ========================================================================== */
+.site-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+}
+
+.site-preloader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.loader-logo {
+  animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+.preloader-bar {
+  width: 180px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-lavender));
+  border-radius: var(--radius-full);
+  transition: width 0.35s ease-out;
+}
+
+.preloader-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   CASE STUDY 8-PART DEDICATED LAYOUT STYLING
+   ========================================================================== */
+.cs-visual-container {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.cs-visual-container .arch-box,
+.cs-visual-container .arcade-frame-mockup,
+.cs-visual-container .browser-frame-mockup {
+  margin: 0;
+  width: 100%;
+}
+
+.cs-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent-red);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   INTERACTIVE SKILL PILL MICRO-INTERACTIONS
+   ========================================================================== */
+.skill-pill.verified {
+  position: relative;
+  cursor: default;
+  transition: all var(--transition-fast);
+}
+
+.skill-pill.verified:hover {
+  border-color: var(--border-highlight);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.06);
+}
